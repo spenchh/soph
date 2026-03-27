@@ -3,316 +3,408 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>for sophia.</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+<title>for sophia. 🐧</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;cursor:none!important}
 :root{
-  --deep:#0d0a1a;
-  --purple-dark:#2d0a4e;
+  --bg:#1a0e2e;
+  --purple-dark:#2C1654;
+  --purple-mid:#4E2A84;
   --purple:#7c3aed;
-  --purple-mid:#9333ea;
+  --purple-light:#9B59B6;
   --lavender:#c4b5fd;
-  --lavender-dim:rgba(196,181,253,0.35);
-  --gold:#f59e0b;
-  --text:rgba(255,255,255,0.88);
-  --text-dim:rgba(255,255,255,0.45);
+  --lavender-pale:rgba(196,181,253,0.25);
+  --gold:#FFD700;
+  --gold-dim:rgba(255,215,0,0.6);
+  --pink:#ff8fab;
+  --rose:#e84057;
+  --cream:#fff8f5;
+  --text:rgba(255,255,255,0.92);
   --text-mid:rgba(255,255,255,0.65);
+  --text-dim:rgba(255,255,255,0.38);
 }
 
-/* PENGUIN CURSOR */
-#cursor{
-  position:fixed;pointer-events:none;z-index:99999;
-  font-size:20px;transform:translate(-50%,-50%);
-  transition:left .05s linear,top .05s linear;
-  filter:drop-shadow(0 2px 8px rgba(196,181,253,.5));
-  will-change:left,top;
-}
+/* CURSOR */
+#cursor{position:fixed;pointer-events:none;z-index:99999;font-size:22px;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 6px rgba(255,215,0,.4));will-change:left,top}
 
-/* PARTICLE RAIN */
+/* RAIN */
 .rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
-.p-item{position:absolute;top:-20px;animation:pfall linear infinite;will-change:transform,opacity}
-@keyframes pfall{
-  0%{transform:translateY(-20px) translateX(0) rotate(0deg);opacity:.9}
-  50%{transform:translateY(50vh) translateX(18px) rotate(120deg);opacity:.6}
-  100%{transform:translateY(108vh) translateX(-12px) rotate(240deg);opacity:0}
+.raindrop{position:absolute;top:-30px;animation:rfAll linear infinite;will-change:transform,opacity}
+@keyframes rfAll{
+  0%{transform:translateY(-30px) translateX(0) rotate(0);opacity:.9}
+  50%{transform:translateY(50vh) translateX(20px) rotate(160deg);opacity:.65}
+  100%{transform:translateY(108vh) translateX(-15px) rotate(310deg);opacity:0}
 }
 
 /* PAGES */
-html,body{width:100%;height:100%;overflow:hidden;background:var(--deep)}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
 #app{width:100vw;height:100vh;position:relative;overflow:hidden}
 .page{
-  position:absolute;top:0;left:0;width:100%;height:100%;
+  position:absolute;inset:0;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:30px 20px;overflow-y:auto;
+  padding:28px 18px;overflow-y:auto;
   opacity:0;pointer-events:none;
-  transition:opacity .65s ease,transform .65s ease;
-  transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s ease;
+  transform:translateY(16px)
 }
 .page.active{opacity:1;pointer-events:all;transform:translateY(0)}
-.page.out{opacity:0;transform:translateY(-18px);pointer-events:none}
+.page.out{opacity:0;transform:translateY(-16px);pointer-events:none}
 
-/* PAGE BACKGROUNDS — unique per page */
-#p0{background:
-  radial-gradient(ellipse 60% 80% at 20% 60%,rgba(109,40,217,.35) 0%,transparent 60%),
-  radial-gradient(ellipse 50% 60% at 80% 30%,rgba(147,51,234,.2) 0%,transparent 55%),
-  linear-gradient(160deg,#0d0a1a 0%,#1a0d3b 50%,#0d0a1a 100%)}
-#p1{background:
-  radial-gradient(ellipse 70% 90% at 75% 40%,rgba(91,33,182,.25) 0%,transparent 65%),
-  radial-gradient(ellipse 40% 50% at 15% 70%,rgba(124,58,237,.15) 0%,transparent 55%),
-  linear-gradient(145deg,#0d0a1a 0%,#12082a 60%,#0d0a1a 100%)}
-#p2{background:
-  radial-gradient(ellipse 80% 60% at 50% 20%,rgba(109,40,217,.3) 0%,transparent 60%),
-  linear-gradient(180deg,#110d24 0%,#0d0a1a 100%)}
-#p3{background:
-  radial-gradient(ellipse 60% 100% at 10% 50%,rgba(124,58,237,.22) 0%,transparent 55%),
-  radial-gradient(ellipse 50% 60% at 90% 80%,rgba(147,51,234,.18) 0%,transparent 50%),
-  linear-gradient(130deg,#0d0a1a 0%,#180f30 50%,#0d0a1a 100%)}
-#p4{background:
-  radial-gradient(ellipse 90% 70% at 50% 100%,rgba(45,10,78,.6) 0%,transparent 60%),
-  linear-gradient(180deg,#0a0810 0%,#0d0a1a 40%,#0a0810 100%)}
-#p5{background:
-  radial-gradient(ellipse 80% 80% at 50% 50%,rgba(109,40,217,.5) 0%,rgba(45,10,78,.3) 40%,transparent 70%),
-  radial-gradient(ellipse 60% 40% at 20% 20%,rgba(147,51,234,.2) 0%,transparent 50%),
-  radial-gradient(ellipse 50% 40% at 80% 80%,rgba(91,33,182,.2) 0%,transparent 50%),
-  linear-gradient(145deg,#0d0a1a 0%,#1a0d3b 100%)}
+/* PAGE BACKGROUNDS */
+#p0{background:linear-gradient(160deg,#2C1654 0%,#4E2A84 45%,#3b1070 100%)}
+#p1{background:radial-gradient(ellipse 80% 80% at 70% 30%,#2d0f5e 0%,#1a0e2e 65%)}
+#p2{background:radial-gradient(ellipse 70% 70% at 30% 60%,#260a4d 0%,#1a0e2e 65%)}
+#p3{background:radial-gradient(ellipse 80% 60% at 60% 80%,#32123f 0%,#1a0e2e 65%)}
+#p4{background:radial-gradient(ellipse 100% 60% at 50% 100%,#1f0a38 0%,#120820 100%)}
+#p5{background:radial-gradient(ellipse 90% 90% at 50% 50%,#4E2A84 0%,#2C1654 40%,#1a0e2e 80%)}
 
-/* ===== PAGE 0: LANDING ===== */
-.landing-wrap{text-align:center;max-width:520px}
-.landing-name{
-  font-family:'Cormorant Garamond',serif;font-weight:300;
-  font-size:clamp(5rem,14vw,9rem);line-height:1;letter-spacing:.04em;
-  color:white;margin-bottom:14px;
-  animation:fadeUp 1.2s ease-out both}
-.landing-sub{
-  font-size:.8rem;letter-spacing:.35em;text-transform:lowercase;
-  color:var(--text-dim);margin-bottom:64px;
-  animation:fadeUp 1.5s ease-out both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* PAGE 0: LANDING */
+#p0{justify-content:flex-start;padding:0}
+.landing-banner{
+  width:100%;flex-shrink:0;position:relative;
+  background:linear-gradient(160deg,#2C1654 0%,#5a2d82 50%,#3b1a6e 100%);
+  border-bottom:4px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 24px 26px;text-align:center
+}
+.banner-pattern{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(45deg,transparent,transparent 35px,rgba(255,215,0,.04) 35px,rgba(255,215,0,.04) 70px),
+    repeating-linear-gradient(-45deg,transparent,transparent 35px,rgba(255,255,255,.03) 35px,rgba(255,255,255,.03) 70px);
+  pointer-events:none
+}
+.banner-eyebrow{
+  font-family:'Quicksand',sans-serif;font-size:.7rem;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  position:relative;animation:fadeUp 1s both
+}
+.banner-name{
+  font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;
+  font-size:clamp(3.2rem,10vw,7rem);line-height:1.02;
+  color:white;position:relative;
+  text-shadow:0 0 40px rgba(196,181,253,.35),3px 3px 0 rgba(78,42,132,.6);
+  animation:fadeUp 1.1s both
+}
+.banner-sub{
+  font-family:'Dancing Script',cursive;font-size:clamp(1rem,3vw,1.4rem);
+  color:var(--lavender);margin-top:8px;position:relative;
+  animation:fadeUp 1.25s both
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;position:relative;animation:fadeUp 1.4s both}
+.chip{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,215,0,.3);
+  border-radius:50px;padding:6px 14px;font-size:.78rem;
+  font-family:'Quicksand',sans-serif;font-weight:600;color:rgba(255,255,255,.85);
+  display:flex;align-items:center;gap:5px;
+  transition:all .25s
+}
+.chip:hover{background:rgba(255,215,0,.15);border-color:var(--gold);transform:scale(1.07) rotate(-1deg)}
 
-/* ===== PAGE 1: LETTER ===== */
-.letter-label{
-  font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;
-  color:var(--lavender);letter-spacing:.2em;margin-bottom:24px;opacity:.6}
-.letter-card{
-  max-width:560px;width:100%;
-  background:rgba(255,255,255,.033);
-  border:1px solid rgba(196,181,253,.12);
-  border-radius:3px;padding:44px 42px;
-  backdrop-filter:blur(12px)}
-.letter-card p{color:var(--text-mid);line-height:1.95;font-size:.93rem;font-weight:300;margin-bottom:14px}
-.letter-sig{font-family:'Dancing Script',cursive;font-size:1.45rem;color:var(--lavender);display:block;text-align:right;margin-top:22px}
-.btn-row{text-align:center;margin-top:28px}
+/* MARQUEE */
+.marquee-wrap{
+  width:100%;background:rgba(78,42,132,.7);
+  border-bottom:2px solid rgba(196,181,253,.25);
+  padding:8px 0;overflow:hidden;flex-shrink:0
+}
+.marquee{
+  display:flex;white-space:nowrap;
+  animation:scroll 18s linear infinite;
+  font-family:'Quicksand',sans-serif;font-size:.72rem;
+  letter-spacing:.15em;color:var(--gold)
+}
+.marquee span{margin-right:55px}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* LANDING BOTTOM */
+.landing-bottom{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:18px;padding:24px 20px;
+  animation:fadeUp 1.6s both
+}
+.landing-note{
+  font-family:'Dancing Script',cursive;font-size:1.1rem;
+  color:var(--text-mid);text-align:center;max-width:400px;line-height:1.7
+}
 
 /* BUTTONS */
-.btn-ghost{
-  background:transparent;border:1px solid var(--lavender-dim);
-  color:var(--lavender);padding:11px 32px;border-radius:2px;
-  font-size:.78rem;letter-spacing:.3em;text-transform:lowercase;
-  cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
-.btn-ghost:hover{background:rgba(196,181,253,.08);border-color:var(--lavender);transform:translateY(-2px)}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),#e6b800);
+  border:none;color:#1a0e2e;padding:13px 38px;border-radius:50px;
+  font-family:'Quicksand',sans-serif;font-weight:700;font-size:.88rem;
+  letter-spacing:.15em;text-transform:lowercase;cursor:pointer;
+  transition:all .3s;box-shadow:0 4px 20px rgba(255,215,0,.35)
+}
+.btn-gold:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 30px rgba(255,215,0,.5)}
+.btn-outline{
+  background:transparent;border:1.5px solid var(--lavender-pale);
+  color:var(--lavender);padding:11px 32px;border-radius:50px;
+  font-family:'Quicksand',sans-serif;font-weight:600;font-size:.82rem;
+  letter-spacing:.15em;text-transform:lowercase;cursor:pointer;
+  transition:all .3s
+}
+.btn-outline:hover{background:rgba(196,181,253,.1);border-color:var(--lavender);transform:translateY(-2px)}
 .btn-solid{
-  background:linear-gradient(135deg,var(--purple),var(--purple-mid));
-  border:none;color:white;padding:13px 38px;border-radius:3px;
-  font-size:.82rem;letter-spacing:.2em;text-transform:lowercase;
-  cursor:pointer;transition:all .3s;box-shadow:0 4px 22px rgba(124,58,237,.38);
-  font-family:'DM Sans',sans-serif}
-.btn-solid:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(124,58,237,.55)}
+  background:linear-gradient(135deg,var(--purple),#9333ea);
+  border:none;color:white;padding:13px 36px;border-radius:50px;
+  font-family:'Quicksand',sans-serif;font-weight:700;font-size:.88rem;
+  letter-spacing:.12em;text-transform:lowercase;cursor:pointer;
+  transition:all .3s;box-shadow:0 4px 20px rgba(124,58,237,.35)
+}
+.btn-solid:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(124,58,237,.55)}
 
-/* ===== PAGE 2: GAME ===== */
-#p2{justify-content:flex-start;padding-top:36px;padding-bottom:36px}
-.game-wrap{width:100%;max-width:460px;text-align:center;margin:0 auto}
-.page-title{
-  font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,4vw,2.2rem);
-  color:white;margin-bottom:6px;font-weight:400}
-.page-sub{color:var(--text-dim);font-size:.78rem;letter-spacing:.18em;margin-bottom:20px}
-.game-stats{color:var(--text-dim);font-size:.78rem;letter-spacing:.18em;margin-bottom:14px}
-.game-board{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
-  max-width:360px;margin:0 auto 14px;perspective:900px}
-.gc{
-  aspect-ratio:1;border-radius:6px;cursor:pointer;
-  transition:transform .45s;transform-style:preserve-3d;
-  position:relative;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE 1: LETTER */
+.section-eyebrow{
+  font-family:'Quicksand',sans-serif;font-size:.68rem;letter-spacing:.45em;
+  text-transform:uppercase;color:var(--gold-dim);margin-bottom:16px;text-align:center
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.8rem,5vw,3rem);color:white;margin-bottom:24px;text-align:center;line-height:1.1
+}
+.letter-card{
+  max-width:580px;width:100%;
+  background:linear-gradient(145deg,rgba(78,42,132,.3),rgba(44,22,84,.5));
+  border:1.5px solid rgba(196,181,253,.2);border-radius:16px;
+  padding:42px 40px;position:relative;overflow:hidden
+}
+.letter-card::before{
+  content:'💌';position:absolute;top:18px;right:22px;
+  font-size:1.8rem;opacity:.18
+}
+.letter-card p{
+  color:rgba(255,255,255,.78);line-height:1.95;
+  font-family:'Quicksand',sans-serif;font-weight:400;font-size:.93rem;
+  margin-bottom:14px
+}
+.letter-sig{
+  font-family:'Dancing Script',cursive;font-size:1.5rem;
+  color:var(--lavender);display:block;text-align:right;margin-top:22px
+}
+.peng-row{display:flex;justify-content:center;gap:8px;margin:20px 0;font-size:1.6rem;animation:wobble 1.4s ease-in-out infinite}
+@keyframes wobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.btn-row{text-align:center;margin-top:6px}
+
+/* PAGE 2: GAME */
+#p2{justify-content:flex-start;padding-top:30px;padding-bottom:30px}
+.game-container{width:100%;max-width:480px;margin:0 auto;text-align:center}
+.game-stats{
+  font-family:'Quicksand',sans-serif;font-size:.75rem;font-weight:600;
+  color:var(--text-dim);letter-spacing:.2em;margin-bottom:14px
+}
+.game-board{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;max-width:360px;margin:0 auto 14px;perspective:900px}
+.gc{aspect-ratio:1;border-radius:10px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;position:relative;box-shadow:0 3px 12px rgba(0,0,0,.35)}
 .gc.flipped,.gc.matched{transform:rotateY(180deg)}
-.gc-front,.gc-back{
-  position:absolute;width:100%;height:100%;
-  backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:6px}
-.gc-front{
-  background:linear-gradient(135deg,#2d0a4e,#5b21b6);
-  font-size:1.2rem;color:var(--lavender);
-  border:1px solid rgba(196,181,253,.15)}
-.gc-back{
-  transform:rotateY(180deg);font-size:1.7rem;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(196,181,253,.25);backdrop-filter:blur(6px)}
-.gc.matched .gc-back{background:rgba(124,58,237,.2);border-color:rgba(196,181,253,.5)}
-.game-msg{font-family:'Dancing Script',cursive;font-size:1.35rem;color:var(--lavender);min-height:36px;margin-bottom:8px}
+.gc-f,.gc-b{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.gc-f{background:linear-gradient(135deg,#4E2A84,#6d28d9);border:1.5px solid rgba(196,181,253,.18);font-size:1.3rem;color:var(--lavender)}
+.gc-b{transform:rotateY(180deg);font-size:1.75rem;background:rgba(255,255,255,.07);border:1.5px solid rgba(196,181,253,.3)}
+.gc.matched .gc-b{background:rgba(255,215,0,.12);border-color:rgba(255,215,0,.5)}
+.game-msg{font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--lavender);min-height:36px;margin-bottom:10px}
 .btn-tiny{
-  background:transparent;border:1px solid rgba(196,181,253,.2);
-  color:var(--text-dim);padding:7px 18px;border-radius:2px;
-  font-size:.7rem;letter-spacing:.25em;text-transform:lowercase;
-  cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
-.btn-tiny:hover{border-color:var(--lavender-dim);color:var(--lavender)}
+  background:transparent;border:1px solid rgba(196,181,253,.18);
+  color:var(--text-dim);padding:7px 18px;border-radius:50px;
+  font-family:'Quicksand',sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.2em;text-transform:lowercase;cursor:pointer;transition:all .3s
+}
+.btn-tiny:hover{border-color:rgba(196,181,253,.4);color:var(--lavender)}
 
-/* reveal after game */
-.game-reveal{display:none;margin-top:24px;text-align:center}
-.game-reveal.show{display:block;animation:fadeUp .7s ease-out both}
+/* game reveal */
+.game-reveal{display:none;margin-top:22px;text-align:center;max-width:460px;margin-left:auto;margin-right:auto}
+.game-reveal.show{display:block;animation:fadeUp .7s both}
+.reveal-card{
+  background:linear-gradient(145deg,rgba(78,42,132,.4),rgba(44,22,84,.6));
+  border:1.5px solid rgba(255,215,0,.25);border-radius:16px;padding:28px 24px
+}
 .reveal-q{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(1.4rem,4vw,2rem);color:white;margin-bottom:6px}
-.reveal-sub{color:var(--text-dim);font-size:.8rem;letter-spacing:.15em;margin-bottom:22px}
-.reveal-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  font-size:clamp(1.4rem,4vw,2rem);color:white;margin-bottom:6px
+}
+.reveal-sub{color:var(--text-dim);font-family:'Quicksand',sans-serif;font-size:.8rem;letter-spacing:.15em;margin-bottom:20px}
+.reveal-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn-no{
   background:transparent;border:1px solid rgba(255,255,255,.12);
-  color:var(--text-dim);padding:13px 22px;border-radius:3px;
-  font-size:.8rem;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
-.btn-no:hover{border-color:rgba(255,255,255,.25);transform:scale(.96)}
+  color:var(--text-dim);padding:12px 20px;border-radius:50px;
+  font-family:'Quicksand',sans-serif;font-size:.78rem;cursor:pointer;transition:all .3s
+}
+.btn-no:hover{border-color:rgba(255,255,255,.25);transform:scale(.95)}
 
-/* ===== PAGE 3: RESTAURANTS ===== */
-#p3{justify-content:flex-start;padding-top:36px;padding-bottom:40px}
-.dinner-wrap{width:100%;max-width:860px;margin:0 auto;text-align:center}
-.rest-grid{
-  display:grid;gap:12px;margin:24px 0;
-  grid-template-columns:repeat(auto-fit,minmax(195px,1fr))}
+/* PAGE 3: RESTAURANTS */
+#p3{justify-content:flex-start;padding-top:28px;padding-bottom:36px}
+.dinner-wrap{width:100%;max-width:900px;margin:0 auto;text-align:center}
+.rest-grid{display:grid;gap:12px;margin:20px 0;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .rest-card{
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(196,181,253,.12);
-  border-radius:4px;padding:22px 18px;cursor:pointer;
-  transition:all .3s;text-align:left;position:relative;overflow:hidden}
-.rest-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,var(--purple),var(--purple-mid));
-  opacity:0;transition:opacity .3s}
-.rest-card:hover,.rest-card.picked{background:rgba(124,58,237,.12);border-color:rgba(196,181,253,.3);transform:translateY(-3px)}
+  background:linear-gradient(145deg,rgba(78,42,132,.3),rgba(44,22,84,.5));
+  border:1.5px solid rgba(196,181,253,.15);border-radius:14px;
+  padding:20px 17px;cursor:pointer;transition:all .3s;text-align:left;position:relative;overflow:hidden
+}
+.rest-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),#9333ea);opacity:0;transition:opacity .3s}
+.rest-card:hover{background:linear-gradient(145deg,rgba(109,40,217,.2),rgba(78,42,132,.55));border-color:rgba(196,181,253,.3);transform:translateY(-4px);box-shadow:0 8px 28px rgba(78,42,132,.4)}
 .rest-card:hover::after,.rest-card.picked::after{opacity:1}
-.rest-name{color:white;font-size:.92rem;font-weight:500;margin-bottom:3px}
-.rest-type{color:var(--lavender);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
-.rest-note{color:var(--text-dim);font-size:.78rem;line-height:1.65}
-.rest-cta{display:inline-block;margin-top:10px;font-size:.68rem;letter-spacing:.2em;color:var(--lavender);opacity:0;transition:opacity .3s}
+.rest-card.picked{background:linear-gradient(145deg,rgba(109,40,217,.25),rgba(78,42,132,.6));border-color:rgba(255,215,0,.4);box-shadow:0 6px 24px rgba(255,215,0,.15)}
+.rest-emoji{font-size:1.8rem;margin-bottom:8px;display:block}
+.rest-name{color:white;font-family:'Quicksand',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:3px}
+.rest-type{color:var(--lavender);font-family:'Quicksand',sans-serif;font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px}
+.rest-note{color:var(--text-mid);font-family:'Quicksand',sans-serif;font-size:.77rem;line-height:1.6}
+.rest-cta{display:inline-block;margin-top:10px;font-size:.67rem;letter-spacing:.2em;font-family:'Quicksand',sans-serif;color:var(--gold-dim);opacity:0;transition:opacity .3s}
 .rest-card:hover .rest-cta,.rest-card.picked .rest-cta{opacity:1}
-.dinner-confirm{display:none;margin-top:6px}
-.dinner-confirm.show{display:block;animation:fadeUp .5s ease-out both}
-.confirm-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:white;margin-bottom:6px}
-.confirm-sub{color:var(--text-dim);font-size:.78rem;letter-spacing:.15em;margin-bottom:20px}
+.dinner-confirm{display:none;margin-top:10px}
+.dinner-confirm.show{display:block;animation:fadeUp .5s both}
+.confirm-wrap{
+  background:linear-gradient(145deg,rgba(78,42,132,.35),rgba(44,22,84,.55));
+  border:1.5px solid rgba(255,215,0,.3);border-radius:14px;
+  padding:22px 24px;text-align:center;display:inline-block;max-width:400px
+}
+.confirm-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:white;margin-bottom:5px}
+.confirm-sub{font-family:'Quicksand',sans-serif;color:var(--text-dim);font-size:.78rem;letter-spacing:.12em;margin-bottom:18px}
 
-/* ===== PAGE 4: POLAROIDS ===== */
-.pol-section{width:100%;max-width:900px;text-align:center}
-.pol-strip{
-  display:flex;gap:18px;padding:16px 10px 32px;
-  justify-content:center;flex-wrap:wrap}
+/* PAGE 4: POLAROIDS */
+.pol-section{width:100%;max-width:920px;text-align:center}
+.pol-hint{font-family:'Quicksand',sans-serif;font-size:.68rem;letter-spacing:.15em;color:var(--text-dim);margin-bottom:4px}
+.pol-strip{display:flex;gap:16px;padding:14px 8px 28px;justify-content:center;flex-wrap:wrap}
 .polaroid{
-  background:#fff;padding:11px 11px 34px;
-  box-shadow:0 10px 40px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.4);
-  flex-shrink:0;width:155px;
-  transform:rotate(var(--r,-2deg));
-  transition:transform .3s,box-shadow .3s;
-  position:relative;cursor:default}
-.polaroid:hover{transform:rotate(0deg) scale(1.06);z-index:10;box-shadow:0 18px 60px rgba(0,0,0,.65)}
+  background:#fff;padding:10px 10px 32px;flex-shrink:0;width:152px;
+  box-shadow:0 10px 40px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.35);
+  transform:rotate(var(--r,-2deg));transition:transform .3s,box-shadow .3s;
+  position:relative
+}
+.polaroid:hover{transform:rotate(0deg) scale(1.07);z-index:10;box-shadow:0 18px 55px rgba(0,0,0,.65)}
 .polaroid::before{
-  content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);
-  width:38px;height:14px;background:rgba(196,181,253,.55);border-radius:1px}
-.pol-img{
-  width:100%;aspect-ratio:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:.65rem;color:#aaa;text-align:center;padding:6px;
-  gap:5px;position:relative}
-.pol-img .icon{font-size:1.2rem;opacity:.5}
-.pol-cap{
-  font-family:'Dancing Script',cursive;font-size:.88rem;
-  color:#666;text-align:center;margin-top:7px;line-height:1.3;padding:0 4px}
-.pol-hint{
-  font-size:.68rem;letter-spacing:.15em;color:var(--text-dim);
-  margin-bottom:6px;text-transform:lowercase}
+  content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  width:36px;height:13px;border-radius:2px;
+  background:rgba(196,181,253,.55)
+}
+.pol-img{width:100%;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-family:'Quicksand',sans-serif;font-size:.62rem;color:#aaa;text-align:center;padding:6px}
+.pol-icon{font-size:1.1rem;opacity:.4}
+.pol-cap{font-family:'Dancing Script',cursive;font-size:.88rem;color:#666;text-align:center;margin-top:6px;line-height:1.3;padding:0 3px}
 
-/* ===== PAGE 5: BIRTHDAY REVEAL ===== */
-.final-wrap{text-align:center;max-width:580px}
-.final-label{font-size:.7rem;letter-spacing:.45em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px}
+/* PAGE 5: BIRTHDAY */
+.final-wrap{text-align:center;max-width:580px;width:100%}
+.final-eyebrow{
+  font-family:'Quicksand',sans-serif;font-size:.68rem;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--gold-dim);margin-bottom:16px
+}
 .final-title{
-  font-family:'Cormorant Garamond',serif;font-weight:300;
-  font-size:clamp(2.8rem,9vw,5.5rem);color:white;
-  line-height:1.05;margin-bottom:22px}
-.final-title .acc{color:var(--lavender)}
+  font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:clamp(3rem,9vw,6rem);color:white;line-height:1.05;margin-bottom:20px
+}
+.final-title .acc{color:var(--gold)}
+.final-title .acc2{color:var(--lavender)}
 .final-msg{
-  font-family:'Dancing Script',cursive;font-size:1.2rem;
-  color:var(--text-mid);line-height:1.8;margin-bottom:32px;
-  max-width:440px;margin-left:auto;margin-right:auto}
-.peng-row{font-size:2.2rem;letter-spacing:10px;display:inline-block;animation:waddle 1.4s ease-in-out infinite}
-@keyframes waddle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+  font-family:'Dancing Script',cursive;font-size:1.25rem;
+  color:rgba(255,255,255,.72);line-height:1.85;margin-bottom:28px;
+  max-width:460px;margin-left:auto;margin-right:auto
+}
+.final-hearts{font-size:2.2rem;letter-spacing:12px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
 /* CONFETTI */
 .cf{position:fixed;top:-20px;z-index:10001;animation:cfall linear forwards;pointer-events:none}
-@keyframes cfall{
-  0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}
-  100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
+@keyframes cfall{0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
 
 /* RESPONSIVE */
 @media(max-width:640px){
   .letter-card{padding:28px 22px}
   .game-board{max-width:290px;gap:7px}
   .rest-grid{grid-template-columns:1fr 1fr}
-  .polaroid{width:128px}
-  .rest-card{padding:16px 13px}
-  #p3,#p2{padding-left:14px;padding-right:14px}
+  .rest-card{padding:15px 12px}
+  .polaroid{width:130px}
+  #p3,#p2{padding-left:13px;padding-right:13px}
+  .banner-name{font-size:clamp(2.8rem,9vw,5rem)}
 }
 @media(max-width:380px){
   .rest-grid{grid-template-columns:1fr}
-  .polaroid{width:140px}
+  .pol-strip{gap:12px}
 }
 </style>
 </head>
 <body>
 
-<!-- PENGUIN CURSOR -->
+<!-- CURSOR -->
 <div id="cursor">🐧</div>
-
-<!-- PARTICLE RAIN -->
+<!-- RAIN -->
 <div class="rain" id="rain"></div>
 
-<!-- ============================================================ -->
 <div id="app">
 
 <!-- ===== PAGE 0 — LANDING ===== -->
 <div class="page active" id="p0">
-  <div class="landing-wrap">
-    <div class="landing-name">sophia.</div>
-    <p class="landing-sub">something made just for you.</p>
-    <button class="btn-ghost" onclick="goTo(1)">open &rarr;</button>
+
+  <!-- Banner -->
+  <div class="landing-banner">
+    <div class="banner-pattern"></div>
+    <div class="banner-eyebrow">✦ something just for you ✦</div>
+    <div class="banner-name">sophia bian.</div>
+    <div class="banner-sub">the real one. no occasion needed. (but there is one.)</div>
+    <div class="chips">
+      <div class="chip">🐧 penguin lover</div>
+      <div class="chip">🎶 flute queen</div>
+      <div class="chip">⚡ EE major</div>
+      <div class="chip">🍵 milk tea addict</div>
+      <div class="chip">🥭 mango sago</div>
+      <div class="chip">🍜 noodle devotee</div>
+      <div class="chip">🌹 rose girl</div>
+      <div class="chip">🌿 nature soul</div>
+      <div class="chip">💜 purple everything</div>
+    </div>
   </div>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee" id="mq">
+      <span>🐧 sophia bian</span><span>🍵 milk tea run</span><span>🎶 flute hours</span><span>⚡ circuits &amp; signals</span><span>🥭 mango sago</span><span>🌹 rose girl</span><span>🍜 noodles always</span><span>💜 purple &amp; gold</span><span>🐧 sophia bian</span><span>🍵 milk tea run</span><span>🎶 flute hours</span><span>⚡ circuits &amp; signals</span><span>🥭 mango sago</span><span>🌹 rose girl</span><span>🍜 noodles always</span><span>💜 purple &amp; gold</span>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="landing-bottom">
+    <p class="landing-note">made this for you. took a while. you're worth it.<br>open it when you have a minute.</p>
+    <button class="btn-gold" onclick="goTo(1)">open →</button>
+  </div>
+
 </div>
 
 <!-- ===== PAGE 1 — LETTER ===== -->
 <div class="page" id="p1">
-  <p class="letter-label">a little something.</p>
+  <div class="section-eyebrow">a little something.</div>
   <div class="letter-card">
-    <p>there's something i've been wanting to say — a bunch of things, actually — and i figured a normal text wasn't going to cut it.</p>
+    <p>there's something i've been wanting to say — a bunch of things, actually — and a text wasn't going to do it justice.</p>
+    <p>watching you move through the world — the circuits and signals, the flute, the way you turn a milk tea run into the best part of any day — it doesn't get old. genuinely doesn't.</p>
     <p>you're the kind of person people write songs about and don't fully understand why until much later. i think i'm starting to understand why.</p>
-    <p>watching you move through the world — the circuits and signals, the flute, the way you make jasmine milk tea feel like a whole philosophy — it doesn't get old. genuinely.</p>
     <p>so here's this. a little bit of everything. keep going.</p>
     <span class="letter-sig">— me 🐧</span>
   </div>
+  <div class="peng-row">🐧 🌹 🐧</div>
   <div class="btn-row">
-    <button class="btn-ghost" onclick="goTo(2)">keep going &rarr;</button>
+    <button class="btn-outline" onclick="goTo(2)">keep going →</button>
   </div>
 </div>
 
 <!-- ===== PAGE 2 — MEMORY GAME ===== -->
 <div class="page" id="p2">
-  <div class="game-wrap">
-    <div class="page-title">match the pairs.</div>
-    <p class="page-sub">find all 8 — something's waiting at the end.</p>
-    <div class="game-stats">moves: <span id="moves">0</span> &nbsp;&middot;&nbsp; matched: <span id="matched">0</span>/8</div>
+  <div class="game-container">
+    <div class="section-eyebrow">a little game.</div>
+    <div class="section-title" style="margin-bottom:10px">match the pairs.</div>
+    <p style="font-family:'Quicksand',sans-serif;font-size:.8rem;color:var(--text-dim);letter-spacing:.1em;margin-bottom:16px">find all 8 — something's waiting at the end.</p>
+    <div class="game-stats">moves: <span id="moves">0</span> &nbsp;·&nbsp; matched: <span id="matched">0</span>/8</div>
     <div class="game-board" id="board"></div>
     <div class="game-msg" id="gmsg">flip two cards to start 🐧</div>
-    <button class="btn-tiny" onclick="initGame()">shuffle &circlearrowleft;</button>
+    <button class="btn-tiny" onclick="initGame()">shuffle ↺</button>
   </div>
 
+  <!-- Reveal after win -->
   <div class="game-reveal" id="reveal">
-    <div class="reveal-q">want to go to dinner with me?</div>
-    <p class="reveal-sub">for your birthday &nbsp;&middot;&nbsp; chicago &nbsp;&middot;&nbsp; just us.</p>
-    <div class="reveal-btns">
-      <button class="btn-solid" onclick="acceptDinner()">obviously yes</button>
-      <button class="btn-no" id="noBtn" onclick="noClick(this)">hmm let me think</button>
+    <div class="reveal-card">
+      <div style="font-size:2.2rem;margin-bottom:10px">🐧💜🌹</div>
+      <div class="reveal-q">want to go to dinner with me?</div>
+      <p class="reveal-sub">for your birthday &nbsp;·&nbsp; chicago &nbsp;·&nbsp; just us.</p>
+      <div class="reveal-btns">
+        <button class="btn-gold" onclick="acceptDinner()">obviously yes</button>
+        <button class="btn-no" id="noBtn" onclick="noClick(this)">hmm let me think</button>
+      </div>
     </div>
   </div>
 </div>
@@ -320,51 +412,54 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep)}
 <!-- ===== PAGE 3 — RESTAURANTS ===== -->
 <div class="page" id="p3">
   <div class="dinner-wrap">
-    <div class="page-title">where do you want to go?</div>
-    <p class="page-sub">i'll handle the reservation &nbsp;&middot;&nbsp; checking your beli app too.</p>
-    <div class="rest-grid">
+    <div class="section-eyebrow">your birthday dinner.</div>
+    <div class="section-title">where do you want to go?</div>
+    <p style="font-family:'Quicksand',sans-serif;font-size:.8rem;color:var(--text-dim);letter-spacing:.1em;margin-bottom:4px">i'm making the reservation — checking your beli app too.</p>
 
+    <div class="rest-grid">
       <div class="rest-card" onclick="pickRest(this,'Avli on the Park')">
+        <span class="rest-emoji">🫒</span>
         <div class="rest-name">Avli on the Park</div>
         <div class="rest-type">Greek Mediterranean</div>
-        <div class="rest-note">Lincoln Park. Warm and intimate — the kind of place that feels right from the moment you walk in. [check Beli for your notes on this one]</div>
-        <span class="rest-cta">&rarr; this one</span>
+        <div class="rest-note">Lincoln Park. Warm, intimate, the kind of place that just feels right from the start. [check your Beli notes]</div>
+        <span class="rest-cta">✦ this one →</span>
       </div>
-
       <div class="rest-card" onclick="pickRest(this,'Gyu-Kaku Japanese BBQ')">
+        <span class="rest-emoji">🔥</span>
         <div class="rest-name">Gyu-Kaku Japanese BBQ</div>
         <div class="rest-type">Japanese BBQ</div>
-        <div class="rest-note">Cook at the table together. Interactive, fun — something to do with your hands while we talk. [check Beli for your notes]</div>
-        <span class="rest-cta">&rarr; this one</span>
+        <div class="rest-note">Cook at the table together. Fun, interactive, gives us something to do besides be cute (which we'll do anyway). [check Beli]</div>
+        <span class="rest-cta">✦ this one →</span>
       </div>
-
       <div class="rest-card" onclick="pickRest(this,'Simply Pasteur')">
+        <span class="rest-emoji">🌿</span>
         <div class="rest-name">Simply Pasteur</div>
         <div class="rest-type">Vietnamese</div>
         <div class="rest-note">[check your Beli for notes — placeholder until you look it up]</div>
-        <span class="rest-cta">&rarr; this one</span>
+        <span class="rest-cta">✦ this one →</span>
       </div>
-
       <div class="rest-card" onclick="pickRest(this,'Qiao Lin Hotpot')">
+        <span class="rest-emoji">🍲</span>
         <div class="rest-name">Qiao Lin Hotpot</div>
         <div class="rest-type">Chinese Hotpot</div>
         <div class="rest-note">Communal, cozy, the kind of dinner that takes its time. [check your Beli for notes]</div>
-        <span class="rest-cta">&rarr; this one</span>
+        <span class="rest-cta">✦ this one →</span>
       </div>
-
       <div class="rest-card" onclick="pickRest(this,'your choice')">
+        <span class="rest-emoji">💜</span>
         <div class="rest-name">you pick.</div>
         <div class="rest-type">wildcard</div>
         <div class="rest-note">wherever you want. seriously. you pick, i'll make it work — no questions asked.</div>
-        <span class="rest-cta">&rarr; this one</span>
+        <span class="rest-cta">✦ this one →</span>
       </div>
-
     </div>
 
     <div class="dinner-confirm" id="dinnerConfirm">
-      <div class="confirm-line" id="confirmLine">noted.</div>
-      <p class="confirm-sub">i've got us covered.</p>
-      <button class="btn-ghost" onclick="goTo(4)">there's more &rarr;</button>
+      <div class="confirm-wrap">
+        <div class="confirm-line" id="confirmLine">noted.</div>
+        <p class="confirm-sub">i've got us covered. looking forward to it.</p>
+        <button class="btn-outline" onclick="goTo(4)">there's more →</button>
+      </div>
     </div>
   </div>
 </div>
@@ -372,110 +467,82 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep)}
 <!-- ===== PAGE 4 — POLAROIDS ===== -->
 <div class="page" id="p4">
   <div class="pol-section">
-    <div class="page-title" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,4vw,2.5rem)">a year and some.</div>
-    <p class="page-sub" style="margin-bottom:4px">the ones worth keeping.</p>
-    <p class="pol-hint">[ swap the placeholders below with real photos — just replace each &lt;div class="pol-img"&gt; with an &lt;img&gt; tag ]</p>
+    <div class="section-eyebrow">a year and some.</div>
+    <div class="section-title" style="margin-bottom:6px">the ones worth keeping.</div>
+    <p class="pol-hint">[ swap placeholders with real photos — replace each pol-img div with an &lt;img&gt; tag ]</p>
     <div class="pol-strip">
-
       <div class="polaroid" style="--r:-4deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#1a0d3b,#2d1b69)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+        <div class="pol-img" style="background:linear-gradient(135deg,#2C1654,#4E2A84)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
       <div class="polaroid" style="--r:2.5deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#120724,#3b0764)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+        <div class="pol-img" style="background:linear-gradient(135deg,#3b1070,#6d28d9)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
       <div class="polaroid" style="--r:-1.5deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#0f0528,#4c1d95)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+        <div class="pol-img" style="background:linear-gradient(135deg,#4E2A84,#7c3aed)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
-      <div class="polaroid" style="--r:3.5deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#1e1035,#5b21b6)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+      <div class="polaroid" style="--r:3deg">
+        <div class="pol-img" style="background:linear-gradient(135deg,#2d0f5e,#5b21b6)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
       <div class="polaroid" style="--r:-2.5deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#160a2e,#6d28d9)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+        <div class="pol-img" style="background:linear-gradient(135deg,#3b1070,#9333ea)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
       <div class="polaroid" style="--r:1.5deg">
-        <div class="pol-img" style="background:linear-gradient(135deg,#0d0820,#4a1d96)">
-          <span class="icon">📷</span>
-          <span>[ photo ]</span>
-        </div>
+        <div class="pol-img" style="background:linear-gradient(135deg,#4E2A84,#6d28d9)"><span class="pol-icon">📷</span><span>[ photo ]</span></div>
         <div class="pol-cap">[caption]</div>
       </div>
-
     </div>
     <div style="margin-top:8px">
-      <button class="btn-ghost" onclick="goTo(5)">one more thing &rarr;</button>
+      <button class="btn-outline" onclick="goTo(5)">one more thing →</button>
     </div>
   </div>
 </div>
 
-<!-- ===== PAGE 5 — BIRTHDAY REVEAL ===== -->
+<!-- ===== PAGE 5 — BIRTHDAY ===== -->
 <div class="page" id="p5">
   <div class="final-wrap">
-    <div class="final-label">april 25th</div>
+    <div class="final-eyebrow">april 25th &nbsp;·&nbsp; nineteen</div>
     <div class="final-title">
-      happy<br><span class="acc">birthday,</span><br>sophia.
+      happy<br>
+      <span class="acc">birthday,</span><br>
+      <span class="acc2">sophia.</span>
     </div>
     <div class="final-msg">
       here's to 19 — and everything after.<br>
-      i'm really glad you exist. genuinely.<br>
+      i'm really glad you exist. genuinely.<br><br>
       [add your own words here 🐧]
     </div>
-    <div class="peng-row">🐧 🌹 🐧</div>
+    <div class="final-hearts">🐧 💜 🌹</div>
   </div>
 </div>
 
 </div><!-- end #app -->
 
 <script>
-// ===== PENGUIN CURSOR =====
-const cursor = document.getElementById('cursor');
-let mx=window.innerWidth/2, my=window.innerHeight/2;
-document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; });
-(function moveCursor(){
-  cursor.style.left=mx+'px';
-  cursor.style.top=my+'px';
-  requestAnimationFrame(moveCursor);
-})();
+// ===== CURSOR =====
+const cursor=document.getElementById('cursor');
+let mx=window.innerWidth/2,my=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function tick(){cursor.style.left=mx+'px';cursor.style.top=my+'px';requestAnimationFrame(tick)})();
 
-// ===== PARTICLE RAIN =====
-(function rain(){
+// ===== RAIN =====
+(function startRain(){
   const c=document.getElementById('rain');
-  const glyphs=['✦','·','✧','°','˖','⋆'];
+  const drops=['🌸','✦','·','✧','🌹','💜','✦','·'];
   setInterval(()=>{
-    const p=document.createElement('div');
-    p.className='p-item';
-    p.textContent=glyphs[Math.floor(Math.random()*glyphs.length)];
-    const size=7+Math.random()*10;
-    const dur=7+Math.random()*9;
-    const op=0.25+Math.random()*0.45;
-    p.style.cssText=`left:${Math.random()*100}%;font-size:${size}px;color:rgba(196,181,253,${op});animation-duration:${dur}s`;
-    c.appendChild(p);
-    setTimeout(()=>p.remove(),dur*1000+500);
-  },450);
+    const d=document.createElement('div');
+    d.className='raindrop';
+    d.textContent=drops[Math.floor(Math.random()*drops.length)];
+    const sz=8+Math.random()*11, dur=6+Math.random()*8;
+    const op=0.25+Math.random()*0.4;
+    d.style.cssText=`left:${Math.random()*100}%;font-size:${sz}px;color:rgba(196,181,253,${op});animation-duration:${dur}s`;
+    c.appendChild(d);
+    setTimeout(()=>d.remove(),(dur+1)*1000);
+  },400);
 })();
 
 // ===== PAGE NAV =====
@@ -489,12 +556,12 @@ function goTo(n){
     cur=n;
     pages[n].classList.add('active');
     pages[n].scrollTop=0;
-    if(n===5) setTimeout(confetti,700);
-  },650);
+    if(n===5)setTimeout(confetti,700);
+  },620);
 }
 
 // ===== MEMORY GAME =====
-const emojis=['🐧','🌸','🍵','🎶','🥭','🍜','🌿','💜'];
+const emojis=['🐧','🌹','🍵','🎶','🥭','🍜','🌿','💜'];
 let cards=[],flipped=[],pairs=0,moves=0,locked=false;
 
 function initGame(){
@@ -504,15 +571,15 @@ function initGame(){
   document.getElementById('matched').textContent='0';
   document.getElementById('gmsg').textContent='flip two cards to start 🐧';
   document.getElementById('reveal').classList.remove('show');
-  document.getElementById('noBtn').style.cssText='';
-  document.getElementById('noBtn').textContent='hmm let me think';
   noCount=0;
+  const nb=document.getElementById('noBtn');
+  if(nb){nb.textContent='hmm let me think';nb.style.cssText='';nb.style.display='';}
   const b=document.getElementById('board');
   b.innerHTML='';
   cards.forEach((e,i)=>{
     const card=document.createElement('div');
     card.className='gc';
-    card.innerHTML=`<div class="gc-front">✦</div><div class="gc-back">${e}</div>`;
+    card.innerHTML=`<div class="gc-f">✦</div><div class="gc-b">${e}</div>`;
     card.addEventListener('click',()=>flip(card,i));
     b.appendChild(card);
   });
@@ -526,20 +593,17 @@ function flip(card,i){
     moves++;
     document.getElementById('moves').textContent=moves;
     locked=true;
-    const[a,b]=flipped;
-    if(a.e===b.e){
+    const[a,bk]=flipped;
+    if(a.e===bk.e){
       pairs++;
       document.getElementById('matched').textContent=pairs;
-      a.card.classList.add('matched');b.card.classList.add('matched');
+      a.card.classList.add('matched');bk.card.classList.add('matched');
       flipped=[];locked=false;
       if(pairs===8)gameWon();
       else document.getElementById('gmsg').textContent=['nice 🐧','got it 💜','keep going ✦','yes ✧'][Math.floor(Math.random()*4)];
     }else{
       document.getElementById('gmsg').textContent=['not quite 🐧','try again ·','close ✦'][Math.floor(Math.random()*3)];
-      setTimeout(()=>{
-        a.card.classList.remove('flipped');b.card.classList.remove('flipped');
-        flipped=[];locked=false;
-      },800);
+      setTimeout(()=>{a.card.classList.remove('flipped');bk.card.classList.remove('flipped');flipped=[];locked=false},850);
     }
   }
 }
@@ -551,51 +615,46 @@ function gameWon(){
     const r=document.getElementById('reveal');
     r.classList.add('show');
     r.scrollIntoView({behavior:'smooth',block:'nearest'});
-  },1100);
+  },1000);
 }
 
 // ===== NO BUTTON =====
 let noCount=0;
 function noClick(btn){
   noCount++;
-  const msgs=['think again 🐧','the penguins are watching 👀','...really?','sophia. 🐧','there is only one answer.','ok. yes then.'];
+  const msgs=['think again 🐧','the penguins are watching 👀','...really?','sophia. 🐧','there is only one answer.','okay. yes then.'];
   btn.textContent=msgs[Math.min(noCount-1,msgs.length-1)];
   btn.style.fontSize=Math.max(.62,.82-.05*noCount)+'rem';
   if(noCount>=6)btn.style.display='none';
 }
 
-function acceptDinner(){
-  confetti();
-  setTimeout(()=>goTo(3),800);
-}
+function acceptDinner(){confetti();setTimeout(()=>goTo(3),800)}
 
 // ===== RESTAURANT PICKER =====
 function pickRest(el,name){
   document.querySelectorAll('.rest-card').forEach(c=>c.classList.remove('picked'));
   el.classList.add('picked');
   const conf=document.getElementById('dinnerConfirm');
-  const line=document.getElementById('confirmLine');
-  line.textContent=name==='your choice'?'your call. i love it.':name+'. noted.';
+  document.getElementById('confirmLine').textContent=name==='your choice'?'your call. i love it.':name+'. noted.';
   conf.classList.add('show');
   conf.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 // ===== CONFETTI =====
 function confetti(){
-  const items=['💜','✦','🌸','🐧','✧','·','🌹','💜','✦'];
-  for(let i=0;i<55;i++){
+  const items=['💜','🌸','✦','🐧','✧','🌹','💛','💜','✦','🥭'];
+  for(let i=0;i<60;i++){
     setTimeout(()=>{
       const p=document.createElement('div');
       p.className='cf';
       p.textContent=items[Math.floor(Math.random()*items.length)];
-      p.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*16}px;animation-duration:${2.2+Math.random()*2.8}s`;
+      p.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*18}px;animation-duration:${2.2+Math.random()*3}s`;
       document.body.appendChild(p);
       setTimeout(()=>p.remove(),5500);
-    },i*55);
+    },i*50);
   }
 }
 
-// INIT
 initGame();
 </script>
 </body>
