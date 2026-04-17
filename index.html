@@ -3,178 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>for sophia 🐧</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+<title>for sophia. 🐧</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none!important}
 :root{
-  --bg:#0f0a1a;
+  --bg:#1a0e2e;
+  --purple-dark:#2C1654;
+  --purple-mid:#4E2A84;
   --purple:#7c3aed;
-  --purple-deep:#4c1d95;
+  --purple-light:#9B59B6;
   --lavender:#c4b5fd;
-  --gold:#fbbf24;
-  --pink:#f472b6;
-  --text:#f8f5ff;
-  --text-dim:rgba(255,255,255,.45);
+  --lavender-pale:rgba(196,181,253,0.25);
+  --gold:#FFD700;
+  --gold-dim:rgba(255,215,0,0.6);
+  --pink:#ff8fab;
+  --rose:#e84057;
+  --text:rgba(255,255,255,0.92);
+  --text-mid:rgba(255,255,255,0.65);
+  --text-dim:rgba(255,255,255,0.38);
 }
-html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text)}
+
+/* CURSOR */
+#cursor{position:fixed;pointer-events:none;z-index:99999;font-size:22px;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 6px rgba(255,215,0,.4));will-change:left,top;transition:font-size .12s}
+
+/* RAIN */
+.rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.raindrop{position:absolute;top:-30px;animation:rfAll linear infinite;will-change:transform,opacity}
+@keyframes rfAll{
+  0%{transform:translateY(-30px) translateX(0) rotate(0);opacity:.9}
+  50%{transform:translateY(50vh) translateX(20px) rotate(160deg);opacity:.65}
+  100%{transform:translateY(108vh) translateX(-15px) rotate(310deg);opacity:0}
+}
+
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
 #app{width:100vw;height:100vh;position:relative;overflow:hidden}
-
-/* PARTICLES */
-#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;border-radius:50%;pointer-events:none;animation:floatUp linear infinite}
-@keyframes floatUp{
-  0%{transform:translateY(100vh) scale(0);opacity:0}
-  10%{opacity:1}
-  90%{opacity:.6}
-  100%{transform:translateY(-10vh) scale(1);opacity:0}
+.page{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:28px 18px;overflow-y:auto;opacity:0;pointer-events:none;
+  transition:opacity .6s ease,transform .6s ease;transform:translateY(16px)
 }
+.page.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.page.out{opacity:0;transform:translateY(-16px);pointer-events:none}
 
-/* PAGES */
-.page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .7s ease,transform .7s ease;transform:scale(.96);z-index:1;overflow-y:auto}
-.page.active{opacity:1;pointer-events:all;transform:scale(1);z-index:2}
+/* ===== PAGE 0 — LANDING ===== */
+#p0{justify-content:flex-start;padding:0;background:linear-gradient(160deg,#2C1654 0%,#4E2A84 45%,#3b1070 100%)}
+.landing-banner{width:100%;flex-shrink:0;position:relative;background:linear-gradient(160deg,#2C1654 0%,#5a2d82 50%,#3b1a6e 100%);border-bottom:4px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px 26px;text-align:center}
+.banner-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 35px,rgba(255,215,0,.04) 35px,rgba(255,215,0,.04) 70px),repeating-linear-gradient(-45deg,transparent,transparent 35px,rgba(255,255,255,.03) 35px,rgba(255,255,255,.03) 70px);pointer-events:none}
+.banner-eyebrow{font-family:'Quicksand',sans-serif;font-size:.7rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;position:relative;animation:fadeUp 1s both}
+.banner-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:clamp(3.2rem,10vw,7rem);line-height:1.02;color:white;position:relative;text-shadow:0 0 40px rgba(196,181,253,.35),3px 3px 0 rgba(78,42,132,.6);animation:fadeUp 1.1s both}
+.banner-sub{font-family:'Dancing Script',cursive;font-size:clamp(1rem,3vw,1.4rem);color:var(--lavender);margin-top:8px;position:relative;animation:fadeUp 1.25s both}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;position:relative;animation:fadeUp 1.4s both}
+.chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,215,0,.3);border-radius:50px;padding:6px 14px;font-size:.78rem;font-family:'Quicksand',sans-serif;font-weight:600;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:5px;transition:all .25s}
+.chip:hover{background:rgba(255,215,0,.15);border-color:var(--gold);transform:scale(1.07) rotate(-1deg)}
+.marquee-wrap{width:100%;background:rgba(78,42,132,.7);border-bottom:2px solid rgba(196,181,253,.25);padding:8px 0;overflow:hidden;flex-shrink:0}
+.marquee{display:flex;white-space:nowrap;animation:scrollM 18s linear infinite;font-family:'Quicksand',sans-serif;font-size:.72rem;letter-spacing:.15em;color:var(--gold)}
+.marquee span{margin-right:55px}
+@keyframes scrollM{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.landing-bottom{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 20px;animation:fadeUp 1.6s both}
+.landing-note{font-family:'Dancing Script',cursive;font-size:1.1rem;color:var(--text-mid);text-align:center;max-width:400px;line-height:1.7}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* ===== PAGE 1: LANDING ===== */
-#landing{background:radial-gradient(ellipse at 50% 30%,#1e1145 0%,#0f0a1a 70%)}
-.landing-penguin{font-size:4rem;animation:bounce 2s ease-in-out infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.landing-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:700;text-align:center;margin:16px 0 8px;line-height:1.1}
-.landing-title .gold{color:var(--gold)}
-.landing-sub{font-family:'Dancing Script',cursive;font-size:clamp(1.1rem,3vw,1.5rem);color:var(--lavender);text-align:center;margin-bottom:32px}
-.btn{border:none;padding:14px 40px;border-radius:60px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;text-transform:lowercase}
-.btn-primary{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#1a0e2e;box-shadow:0 4px 24px rgba(251,191,36,.3)}
-.btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 32px rgba(251,191,36,.5)}
-.btn-outline{background:transparent;border:2px solid rgba(196,181,253,.25);color:var(--lavender)}
-.btn-outline:hover{border-color:var(--lavender);background:rgba(196,181,253,.08);transform:translateY(-2px)}
-.btn-purple{background:linear-gradient(135deg,var(--purple),#9333ea);color:white;box-shadow:0 4px 24px rgba(124,58,237,.3)}
-.btn-purple:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(124,58,237,.5)}
+/* SHARED BUTTONS */
+.btn-gold{background:linear-gradient(135deg,var(--gold),#e6b800);border:none;color:#1a0e2e;padding:13px 38px;border-radius:50px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.15em;text-transform:lowercase;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(255,215,0,.35)}
+.btn-gold:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 30px rgba(255,215,0,.5)}
+.btn-outline{background:transparent;border:1.5px solid var(--lavender-pale);color:var(--lavender);padding:11px 32px;border-radius:50px;font-family:'Quicksand',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.15em;text-transform:lowercase;cursor:pointer;transition:all .3s}
+.btn-outline:hover{background:rgba(196,181,253,.1);border-color:var(--lavender);transform:translateY(-2px)}
+.section-eyebrow{font-family:'Quicksand',sans-serif;font-size:.68rem;letter-spacing:.45em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;text-align:center}
+.section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,5vw,2.6rem);color:white;margin-bottom:6px;text-align:center;line-height:1.15}
 
-/* ===== PAGE 2: GAME ===== */
-#gamePage{background:radial-gradient(ellipse at 30% 70%,#1a0f30 0%,#0f0a1a 70%)}
+/* ===== PAGE 1 — GAME ===== */
+#p1{background:radial-gradient(ellipse 80% 80% at 30% 70%,#260a4d 0%,#1a0e2e 65%);justify-content:flex-start;padding-top:30px}
 .game-wrap{width:100%;max-width:440px;text-align:center}
-.game-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,5vw,2.2rem);margin-bottom:6px}
-.game-hint{font-size:.82rem;color:var(--text-dim);margin-bottom:16px;letter-spacing:.08em}
-.game-stats{font-size:.75rem;color:var(--text-dim);letter-spacing:.2em;margin-bottom:12px;font-weight:600}
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:0 auto 14px;perspective:800px}
-.card{aspect-ratio:1;border-radius:12px;cursor:pointer;transition:transform .5s;transform-style:preserve-3d;position:relative;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.game-hint{font-size:.8rem;color:var(--text-dim);margin-bottom:16px;letter-spacing:.08em;font-family:'Quicksand',sans-serif}
+.game-stats{font-size:.73rem;color:var(--text-dim);letter-spacing:.2em;margin-bottom:10px;font-weight:600;font-family:'Quicksand',sans-serif}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:330px;margin:0 auto 14px;perspective:800px}
+.card{aspect-ratio:1;border-radius:11px;cursor:pointer;transition:transform .5s;transform-style:preserve-3d;position:relative;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 .card.flipped,.card.matched{transform:rotateY(180deg)}
-.card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:12px}
+.card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:11px}
 .card-front{background:linear-gradient(135deg,#3b1a6e,#5b21b6);border:1.5px solid rgba(196,181,253,.15);font-size:1.2rem;color:var(--lavender)}
 .card-back{transform:rotateY(180deg);font-size:1.7rem;background:rgba(255,255,255,.06);border:1.5px solid rgba(196,181,253,.25)}
-.card.matched .card-back{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.4);box-shadow:0 0 20px rgba(251,191,36,.15)}
-.game-msg{font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--lavender);min-height:32px;margin-bottom:10px}
-.btn-sm{background:transparent;border:1px solid rgba(196,181,253,.15);color:var(--text-dim);padding:8px 20px;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;cursor:pointer;transition:all .3s}
+.card.matched .card-back{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);box-shadow:0 0 20px rgba(255,215,0,.12)}
+.game-msg{font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--lavender);min-height:32px;margin-bottom:8px}
+.btn-sm{background:transparent;border:1px solid rgba(196,181,253,.15);color:var(--text-dim);padding:7px 18px;border-radius:50px;font-family:'Quicksand',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;cursor:pointer;transition:all .3s}
 .btn-sm:hover{border-color:var(--lavender);color:var(--lavender)}
 
-/* ===== PAGE 3: PHOTOS ===== */
-#photosPage{background:radial-gradient(ellipse at 70% 40%,#1a0e30 0%,#0f0a1a 70%);justify-content:flex-start;padding-top:28px;padding-bottom:40px}
-.photos-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.4rem);margin-bottom:4px;text-align:center}
+/* ===== PAGE 2 — PHOTOS ===== */
+#p2{background:radial-gradient(ellipse 70% 70% at 70% 40%,#1a0e30 0%,#0f0a1a 65%);justify-content:flex-start;padding-top:28px;padding-bottom:40px}
 .photos-sub{font-family:'Dancing Script',cursive;color:var(--lavender);font-size:1rem;margin-bottom:20px;text-align:center}
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:700px;width:100%;margin:0 auto 24px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:720px;width:100%;margin:0 auto 24px}
 .photo-frame{position:relative;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.04);border:2px solid rgba(196,181,253,.12);transition:all .4s;cursor:pointer}
-.photo-frame:hover{transform:scale(1.04) rotate(-1deg);border-color:rgba(251,191,36,.4);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.photo-frame:hover{transform:scale(1.04) rotate(-1deg);border-color:rgba(255,215,0,.4);box-shadow:0 12px 40px rgba(0,0,0,.5)}
 .photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-frame.landscape{aspect-ratio:3/2}
 .photo-frame.portrait{aspect-ratio:2/3}
-.photo-frame.collage{aspect-ratio:1/2.5}
+.photo-frame.collage{aspect-ratio:1/2.2}
 .photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,26,.7) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:12px}
 .photo-frame:hover .photo-overlay{opacity:1}
 .photo-caption{font-family:'Dancing Script',cursive;font-size:.85rem;color:var(--gold)}
 
-/* ===== PAGE 4: SURPRISE ===== */
-#surprisePage{background:radial-gradient(ellipse at 50% 50%,#1e1045 0%,#0f0a1a 70%)}
+/* ===== PAGE 3 — SURPRISE ===== */
+#p3{background:radial-gradient(ellipse 90% 90% at 50% 50%,#1e1045 0%,#0f0a1a 70%)}
 .surprise-wrap{text-align:center;max-width:500px;width:100%}
-.surprise-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,6vw,3rem);margin-bottom:8px}
 .surprise-penguins{font-size:3rem;margin-bottom:20px;animation:waddle 1s ease-in-out infinite}
 @keyframes waddle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 .surprise-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
-.btn-yes{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:14px 36px;border:none;border-radius:60px;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(34,197,94,.3)}
+.btn-yes{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:14px 36px;border:none;border-radius:60px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(34,197,94,.3)}
 .btn-yes:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 8px 30px rgba(34,197,94,.5)}
-.btn-no-main{background:linear-gradient(135deg,#ef4444,#dc2626);color:white;padding:14px 36px;border:none;border-radius:60px;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(239,68,68,.3)}
+.btn-no-main{background:linear-gradient(135deg,#ef4444,#dc2626);color:white;padding:14px 36px;border:none;border-radius:60px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(239,68,68,.3)}
 .btn-no-main:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(239,68,68,.5)}
-
-/* Anger meter */
 .meter-wrap{margin-top:20px;max-width:300px;margin-left:auto;margin-right:auto;display:none}
-.meter-wrap.show{display:block;animation:fadeIn .4s both}
-.meter-label{font-size:.75rem;color:var(--text-dim);letter-spacing:.15em;margin-bottom:6px;font-weight:600}
-.meter-bar{width:100%;height:20px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
-.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#fbbf24,#f97316,#ef4444);border-radius:10px;transition:width .4s ease}
+.meter-wrap.show{display:block;animation:fadeUp .4s both}
+.meter-label{font-size:.75rem;color:var(--text-dim);letter-spacing:.15em;margin-bottom:6px;font-weight:600;font-family:'Quicksand',sans-serif}
+.meter-bar{width:100%;height:22px;background:rgba(255,255,255,.08);border-radius:11px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#fbbf24,#f97316,#ef4444);border-radius:11px;transition:width .4s ease}
 .meter-text{font-family:'Dancing Script',cursive;font-size:1.1rem;color:var(--pink);margin-top:12px;min-height:28px}
-
-/* Sad penguins */
-.sad-penguin{position:fixed;pointer-events:none;z-index:100;animation:penguinFall linear forwards;font-size:2rem}
-@keyframes penguinFall{
-  0%{transform:translateY(-60px) rotate(0);opacity:1}
-  100%{transform:translateY(110vh) rotate(360deg);opacity:0}
-}
-
-/* Screen shake */
-@keyframes shake{
-  0%,100%{transform:translate(0)}
-  10%{transform:translate(-8px,4px)}
-  20%{transform:translate(6px,-6px)}
-  30%{transform:translate(-4px,8px)}
-  40%{transform:translate(8px,-4px)}
-  50%{transform:translate(-6px,2px)}
-  60%{transform:translate(4px,-8px)}
-  70%{transform:translate(-8px,6px)}
-  80%{transform:translate(6px,4px)}
-  90%{transform:translate(-4px,-6px)}
-}
+.sad-penguin{position:fixed;pointer-events:none;z-index:100;animation:penguinFall linear forwards}
+@keyframes penguinFall{0%{transform:translateY(-60px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+@keyframes shake{0%,100%{transform:translate(0)}10%{transform:translate(-8px,4px)}20%{transform:translate(6px,-6px)}30%{transform:translate(-4px,8px)}40%{transform:translate(8px,-4px)}50%{transform:translate(-6px,2px)}60%{transform:translate(4px,-8px)}70%{transform:translate(-8px,6px)}80%{transform:translate(6px,4px)}90%{transform:translate(-4px,-6px)}}
 .shaking{animation:shake .5s ease}
 
-/* ===== PAGE 5: CAKE ===== */
-#cakePage{background:radial-gradient(ellipse at 50% 60%,#1e1045 0%,#0f0a1a 70%)}
-.cake-wrap{text-align:center;max-width:500px}
-.cake-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.4rem);margin-bottom:24px}
-.cake-container{position:relative;width:280px;height:320px;margin:0 auto 28px}
+/* ===== PAGE 4 — 3D CAKE ===== */
+#p4{background:radial-gradient(ellipse 100% 80% at 50% 55%,#1e1045 0%,#0a0618 100%)}
+.cake-page-wrap{text-align:center;max-width:560px;width:100%}
+.cake-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,5vw,2.6rem);color:white;margin-bottom:16px}
 
-/* Cake layers */
-.cake-base{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:220px;height:80px;background:linear-gradient(to bottom,#d4a574,#c4956a);border-radius:12px 12px 16px 16px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.cake-base::after{content:'';position:absolute;top:-4px;left:-4px;right:-4px;height:16px;background:linear-gradient(to bottom,#f8e0c8,#e8c8a8);border-radius:12px 12px 0 0}
-.cake-mid{position:absolute;bottom:76px;left:50%;transform:translateX(-50%);width:190px;height:70px;background:linear-gradient(to bottom,#e8b5d4,#d9a0c4);border-radius:10px 10px 14px 14px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
-.cake-mid::after{content:'';position:absolute;top:-4px;left:-4px;right:-4px;height:14px;background:linear-gradient(to bottom,#f5d5e8,#ecc0d8);border-radius:10px 10px 0 0}
-.cake-top{position:absolute;bottom:142px;left:50%;transform:translateX(-50%);width:160px;height:65px;background:linear-gradient(to bottom,#c4b5fd,#a78bfa);border-radius:10px 10px 14px 14px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
-.cake-top::after{content:'';position:absolute;top:-4px;left:-4px;right:-4px;height:14px;background:linear-gradient(to bottom,#ddd6fe,#c4b5fd);border-radius:10px 10px 0 0}
+/* 3D Cake */
+.cake-scene{width:340px;height:380px;margin:0 auto 24px;perspective:900px;position:relative}
+.cake-3d{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cakeFloat 4s ease-in-out infinite,cakeRotate 20s linear infinite}
+@keyframes cakeFloat{0%,100%{transform:rotateX(15deg) rotateY(var(--ry,0deg)) translateY(0)}50%{transform:rotateX(15deg) rotateY(var(--ry,0deg)) translateY(-12px)}}
+@keyframes cakeRotate{0%{--ry:0deg}100%{--ry:360deg}}
 
-/* Frosting drip */
-.drip{position:absolute;top:-2px;width:12px;background:var(--lavender);border-radius:0 0 6px 6px;opacity:.7}
+/* Since CSS custom properties don't animate well with @keyframes in all browsers, 
+   we'll do the rotation in JS instead */
+
+.plate{position:absolute;bottom:8px;left:50%;width:270px;height:44px;transform:translateX(-50%) rotateX(72deg);background:radial-gradient(ellipse,#f0e8f8 0%,#d8cce8 50%,#c0b0d8 100%);border-radius:50%;box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 -2px 6px rgba(0,0,0,.1)}
+
+.cake-layer{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;overflow:visible}
+.cake-layer::after{content:'';position:absolute;top:0;left:0;right:0;border-radius:50% 50% 0 0;pointer-events:none}
+
+/* Bottom layer */
+.layer-bot{bottom:40px;width:224px;height:72px;
+  background:linear-gradient(180deg,#f0d4c0 0%,#d4a574 25%,#c08050 100%);
+  border:2px solid rgba(255,255,255,.06);
+  box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 2px 4px rgba(255,255,255,.15)}
+.layer-bot::after{height:26px;background:linear-gradient(180deg,#fce8d4,#f0d4c0);border-top:2px solid rgba(255,255,255,.12)}
+
+/* Middle layer */
+.layer-mid{bottom:108px;width:188px;height:64px;
+  background:linear-gradient(180deg,#f5c8e0 0%,#e8a0c8 25%,#d080a8 100%);
+  border:2px solid rgba(255,255,255,.06);
+  box-shadow:0 8px 24px rgba(0,0,0,.3),inset 0 2px 4px rgba(255,255,255,.15)}
+.layer-mid::after{height:24px;background:linear-gradient(180deg,#fce0f0,#f5c8e0);border-top:2px solid rgba(255,255,255,.12)}
+
+/* Top layer */
+.layer-top{bottom:168px;width:152px;height:58px;
+  background:linear-gradient(180deg,#d4c8f5 0%,#b8a0e8 25%,#9878c8 100%);
+  border:2px solid rgba(255,255,255,.08);
+  box-shadow:0 8px 24px rgba(0,0,0,.3),inset 0 2px 4px rgba(255,255,255,.2)}
+.layer-top::after{height:22px;background:linear-gradient(180deg,#eae4ff,#d4c8f5);border-top:2px solid rgba(255,255,255,.15)}
+
+/* Frosting drips */
+.drip{position:absolute;border-radius:0 0 50% 50%;z-index:2;opacity:.8}
+.drip-b{top:22px;width:14px;background:linear-gradient(180deg,#fce8d4,#f0d0b0)}
+.drip-m{top:20px;width:12px;background:linear-gradient(180deg,#fce0f0,#f0c8d8)}
+.drip-t{top:18px;width:10px;background:linear-gradient(180deg,#eae4ff,#d8d0f5)}
+
+/* Cake glow underneath */
+.cake-glow{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:300px;height:130px;background:radial-gradient(ellipse,rgba(255,215,0,.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;animation:glowPulse 3s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.5;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.1)}}
 
 /* Candles */
-.candles-row{position:absolute;bottom:203px;left:50%;transform:translateX(-50%);display:flex;gap:5px;justify-content:center;width:150px;flex-wrap:wrap}
-.candle{width:5px;height:28px;background:linear-gradient(to bottom,var(--gold),#f59e0b);border-radius:2px 2px 0 0;position:relative}
-.flame{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:8px;height:14px;background:radial-gradient(ellipse,#fff 0%,#fbbf24 40%,#f97316 70%,transparent 100%);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;animation:flicker .3s ease-in-out infinite alternate;filter:blur(.5px)}
-@keyframes flicker{0%{transform:translateX(-50%) scale(1) rotate(-2deg);opacity:1}100%{transform:translateX(-50%) scale(1.1) rotate(2deg);opacity:.85}}
-.flame.out{display:none}
-.smoke{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:4px;height:12px;background:rgba(200,200,200,.3);border-radius:50%;display:none;animation:smokeUp 1s ease forwards}
-.flame.out+.smoke,.candle .smoke.show{display:block}
-@keyframes smokeUp{0%{opacity:.5;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-20px) scale(2)}}
+.candles-3d{position:absolute;bottom:224px;left:50%;transform:translateX(-50%);display:flex;gap:4px;justify-content:center;width:142px;flex-wrap:wrap;z-index:10}
+.candle-3d{width:5px;height:28px;border-radius:2px 2px 0 0;position:relative;
+  background:linear-gradient(90deg,#fbbf24 0%,#fde68a 50%,#fbbf24 100%);
+  box-shadow:1px 0 3px rgba(0,0,0,.2)}
+.flame-3d{position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:9px;height:15px;
+  background:radial-gradient(ellipse,#fff 0%,#fef9c3 25%,#fbbf24 50%,#f97316 80%,transparent 100%);
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  animation:flicker .15s ease-in-out infinite alternate;
+  filter:blur(.3px);
+  box-shadow:0 0 10px 4px rgba(251,191,36,.45),0 0 24px 8px rgba(251,191,36,.12),0 -4px 8px 2px rgba(255,255,255,.15)}
+@keyframes flicker{0%{transform:translateX(-50%) scale(1) rotate(-3deg);opacity:1}100%{transform:translateX(-50%) scale(1.15) rotate(3deg);opacity:.82}}
+.flame-3d.out{opacity:0;transition:opacity .4s;box-shadow:none}
+.smoke-3d{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:4px;height:0;background:rgba(200,200,220,.2);border-radius:50%;pointer-events:none;opacity:0}
+.smoke-3d.show{animation:smokeRise 1.5s ease forwards}
+@keyframes smokeRise{0%{height:6px;opacity:.4;transform:translateX(-50%) translateY(0)}100%{height:20px;opacity:0;transform:translateX(-50%) translateY(-32px)}}
 
-.btn-blow{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:white;padding:16px 48px;border:none;border-radius:60px;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.15em;cursor:pointer;transition:all .3s;box-shadow:0 4px 24px rgba(96,165,250,.35);text-transform:lowercase}
+/* Sparkles */
+.cake-sparkle{position:absolute;pointer-events:none;animation:sparkle 2s ease-in-out infinite;font-size:.7rem}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.3)}}
+
+.btn-blow{
+  background:linear-gradient(135deg,#60a5fa,#3b82f6);color:white;
+  padding:16px 52px;border:none;border-radius:60px;
+  font-family:'Quicksand',sans-serif;font-weight:800;font-size:1.05rem;
+  letter-spacing:.18em;cursor:pointer;transition:all .3s;
+  box-shadow:0 4px 24px rgba(96,165,250,.35);text-transform:lowercase
+}
 .btn-blow:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 32px rgba(96,165,250,.55)}
+.btn-blow.blown{opacity:0;pointer-events:none;transition:opacity .5s}
 
-/* Final message */
-.final-message{display:none;margin-top:28px;max-width:460px}
-.final-message.show{display:block;animation:fadeIn .8s both}
-.msg-card{background:linear-gradient(145deg,rgba(124,58,237,.15),rgba(76,29,149,.3));border:1.5px solid rgba(251,191,36,.25);border-radius:16px;padding:32px 28px;text-align:center}
-.msg-to{font-family:'Playfair Display',serif;font-style:italic;font-size:1.6rem;color:var(--gold);margin-bottom:14px}
-.msg-body{font-family:'Outfit',sans-serif;font-weight:400;font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.9;margin-bottom:18px}
+.final-message{display:none;margin-top:20px;max-width:480px;width:100%}
+.final-message.show{display:block;animation:fadeUp .8s both}
+.msg-card{background:linear-gradient(145deg,rgba(124,58,237,.15),rgba(76,29,149,.3));border:1.5px solid rgba(255,215,0,.25);border-radius:18px;padding:36px 30px;text-align:center;box-shadow:0 12px 48px rgba(0,0,0,.3)}
+.msg-to{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.7rem;color:var(--gold);margin-bottom:16px}
+.msg-body{font-family:'Quicksand',sans-serif;font-weight:400;font-size:.92rem;color:rgba(255,255,255,.78);line-height:2;margin-bottom:20px}
 .msg-from{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--lavender)}
-.msg-hearts{font-size:1.8rem;margin-top:16px;letter-spacing:10px;animation:pulse 1.6s ease-in-out infinite}
+.msg-hearts{font-size:1.8rem;margin-top:18px;letter-spacing:10px;animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
 /* CONFETTI */
-.confetti-piece{position:fixed;top:-20px;z-index:9999;pointer-events:none;animation:confettiFall linear forwards}
-@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(.3);opacity:0}}
+.cf{position:fixed;top:-20px;z-index:10001;animation:cfall linear forwards;pointer-events:none}
+@keyframes cfall{0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
 
-@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-/* RESPONSIVE */
-@media(max-width:600px){
+@media(max-width:640px){
   .board{max-width:280px;gap:6px}
   .photo-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .cake-container{transform:scale(.85);margin-bottom:12px}
-  .surprise-penguins{font-size:2.4rem}
+  .cake-scene{transform:scale(.8);margin-bottom:6px}
+  .banner-name{font-size:clamp(2.8rem,9vw,5rem)}
 }
 @media(max-width:380px){
   .photo-grid{grid-template-columns:1fr 1fr;gap:8px}
@@ -183,68 +230,77 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 </head>
 <body>
 
-<div id="particles"></div>
+<div id="cursor">🐧</div>
+<div class="rain" id="rain"></div>
+
 <div id="app">
 
-<!-- PAGE 1: LANDING -->
-<div class="page active" id="landing">
-  <div class="landing-penguin">🐧</div>
-  <h1 class="landing-title">happy birthday, <span class="gold">sophia</span></h1>
-  <p class="landing-sub">april 25 · turning 19 · this one's for you</p>
-  <button class="btn btn-primary" onclick="goTo('gamePage')">open your present →</button>
+<!-- ===== PAGE 0 — LANDING ===== -->
+<div class="page active" id="p0">
+  <div class="landing-banner">
+    <div class="banner-pattern"></div>
+    <div class="banner-eyebrow">✦ something just for you ✦</div>
+    <div class="banner-name">sophia bian.</div>
+    <div class="banner-sub">the real one. no occasion needed. (but there is one.)</div>
+    <div class="chips">
+      <div class="chip">🐧 penguin lover</div>
+      <div class="chip">🎶 flute queen</div>
+      <div class="chip">⚡ EE major</div>
+      <div class="chip">🍵 milk tea addict</div>
+      <div class="chip">🥭 mango sago</div>
+      <div class="chip">🍜 noodle devotee</div>
+      <div class="chip">🌹 rose girl</div>
+      <div class="chip">🌿 nature soul</div>
+      <div class="chip">💜 purple everything</div>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>🐧 sophia bian</span><span>🍵 milk tea run</span><span>🎶 flute hours</span><span>⚡ circuits &amp; signals</span><span>🥭 mango sago</span><span>🌹 rose girl</span><span>🍜 noodles always</span><span>💜 purple &amp; gold</span>
+      <span>🐧 sophia bian</span><span>🍵 milk tea run</span><span>🎶 flute hours</span><span>⚡ circuits &amp; signals</span><span>🥭 mango sago</span><span>🌹 rose girl</span><span>🍜 noodles always</span><span>💜 purple &amp; gold</span>
+    </div>
+  </div>
+  <div class="landing-bottom">
+    <p class="landing-note">made this for you. took a while. you're worth it.<br>open it when you have a minute.</p>
+    <button class="btn-gold" onclick="goTo(1)">open →</button>
+  </div>
 </div>
 
-<!-- PAGE 2: GAME -->
-<div class="page" id="gamePage">
+<!-- ===== PAGE 1 — GAME ===== -->
+<div class="page" id="p1">
   <div class="game-wrap">
-    <h2 class="game-title">match them all 🐧</h2>
-    <p class="game-hint">find all 8 pairs to unlock your surprise</p>
-    <div class="game-stats">moves: <span id="moveCount">0</span> · matched: <span id="matchCount">0</span>/8</div>
+    <div class="section-eyebrow">a little game.</div>
+    <div class="section-title">match the pairs 🐧</div>
+    <p class="game-hint">find all 8 — something's waiting at the end.</p>
+    <div class="game-stats">moves: <span id="moveCount">0</span> &nbsp;·&nbsp; matched: <span id="matchCount">0</span>/8</div>
     <div class="board" id="board"></div>
-    <div class="game-msg" id="gameMsg">flip two cards to start</div>
+    <div class="game-msg" id="gameMsg">flip two cards to start 🐧</div>
     <button class="btn-sm" onclick="initGame()">shuffle ↺</button>
   </div>
 </div>
 
-<!-- PAGE 3: PHOTOS -->
-<div class="page" id="photosPage">
-  <h2 class="photos-title">us 💜</h2>
-  <p class="photos-sub">a few of my favorites</p>
+<!-- ===== PAGE 2 — PHOTOS ===== -->
+<div class="page" id="p2">
+  <div class="section-eyebrow">a year and some.</div>
+  <div class="section-title" style="margin-bottom:4px">us 💜</div>
+  <p class="photos-sub">the ones worth keeping</p>
   <div class="photo-grid">
-    <div class="photo-frame landscape">
-      <img src="pic1.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">🐧💜</span></div>
-    </div>
-    <div class="photo-frame landscape">
-      <img src="pic2.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">adventures</span></div>
-    </div>
-    <div class="photo-frame landscape">
-      <img src="pic3.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">the crew</span></div>
-    </div>
-    <div class="photo-frame portrait">
-      <img src="pic5.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">mirror pic</span></div>
-    </div>
-    <div class="photo-frame collage">
-      <img src="pic6.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">formal nights</span></div>
-    </div>
-    <div class="photo-frame collage">
-      <img src="pic8.jpeg" alt="">
-      <div class="photo-overlay"><span class="photo-caption">✨</span></div>
-    </div>
+    <div class="photo-frame landscape"><img src="pic1.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">🐧💜</span></div></div>
+    <div class="photo-frame landscape"><img src="pic2.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">adventures</span></div></div>
+    <div class="photo-frame landscape"><img src="pic3.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">the crew</span></div></div>
+    <div class="photo-frame portrait"><img src="pic5.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">mirror pic</span></div></div>
+    <div class="photo-frame collage"><img src="pic6.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">formal nights</span></div></div>
+    <div class="photo-frame collage"><img src="pic8.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">✨</span></div></div>
   </div>
-  <button class="btn btn-outline" onclick="goTo('surprisePage')">keep going →</button>
+  <button class="btn-outline" onclick="goTo(3)">keep going →</button>
 </div>
 
-<!-- PAGE 4: SURPRISE -->
-<div class="page" id="surprisePage">
+<!-- ===== PAGE 3 — SURPRISE ===== -->
+<div class="page" id="p3">
   <div class="surprise-wrap">
     <div class="surprise-penguins">🐧🐧🐧</div>
-    <h2 class="surprise-title">are you ready for a surprise?</h2>
-    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:24px;letter-spacing:.08em">choose wisely.</p>
+    <div class="section-title">are you ready for a surprise?</div>
+    <p style="color:var(--text-dim);font-size:.82rem;margin-bottom:24px;letter-spacing:.1em;font-family:'Quicksand',sans-serif">choose wisely.</p>
     <div class="surprise-btns">
       <button class="btn-yes" onclick="yesClick()">yes!!!</button>
       <button class="btn-no-main" id="noMainBtn" onclick="noMainClick()">no</button>
@@ -257,34 +313,36 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
   </div>
 </div>
 
-<!-- PAGE 5: CAKE -->
-<div class="page" id="cakePage">
-  <div class="cake-wrap">
-    <h2 class="cake-title">make a wish 🎂</h2>
-    <div class="cake-container" id="cakeContainer">
-      <!-- Candles row -->
-      <div class="candles-row" id="candlesRow"></div>
-      <!-- Cake layers -->
-      <div class="cake-top">
-        <div class="drip" style="left:15px;height:18px"></div>
-        <div class="drip" style="left:45px;height:24px"></div>
-        <div class="drip" style="left:80px;height:14px"></div>
-        <div class="drip" style="left:110px;height:20px"></div>
-        <div class="drip" style="left:135px;height:16px"></div>
-      </div>
-      <div class="cake-mid">
-        <div class="drip" style="left:20px;height:20px"></div>
-        <div class="drip" style="left:60px;height:28px"></div>
-        <div class="drip" style="left:100px;height:16px"></div>
-        <div class="drip" style="left:140px;height:22px"></div>
-        <div class="drip" style="left:160px;height:14px"></div>
-      </div>
-      <div class="cake-base">
-        <div class="drip" style="left:25px;height:22px"></div>
-        <div class="drip" style="left:70px;height:30px"></div>
-        <div class="drip" style="left:120px;height:18px"></div>
-        <div class="drip" style="left:170px;height:26px"></div>
-        <div class="drip" style="left:195px;height:14px"></div>
+<!-- ===== PAGE 4 — 3D CAKE ===== -->
+<div class="page" id="p4">
+  <div class="cake-page-wrap">
+    <div class="cake-title">make a wish, sophia ✨</div>
+    <div class="cake-scene" id="cakeScene">
+      <div class="cake-glow"></div>
+      <div class="cake-3d" id="cake3d">
+        <div class="candles-3d" id="candlesRow"></div>
+        <div class="cake-layer layer-top">
+          <div class="drip drip-t" style="left:12px;height:16px"></div>
+          <div class="drip drip-t" style="left:38px;height:22px"></div>
+          <div class="drip drip-t" style="left:68px;height:14px"></div>
+          <div class="drip drip-t" style="left:98px;height:20px"></div>
+          <div class="drip drip-t" style="left:128px;height:12px"></div>
+        </div>
+        <div class="cake-layer layer-mid">
+          <div class="drip drip-m" style="left:16px;height:20px"></div>
+          <div class="drip drip-m" style="left:48px;height:28px"></div>
+          <div class="drip drip-m" style="left:85px;height:15px"></div>
+          <div class="drip drip-m" style="left:120px;height:24px"></div>
+          <div class="drip drip-m" style="left:158px;height:13px"></div>
+        </div>
+        <div class="cake-layer layer-bot">
+          <div class="drip drip-b" style="left:20px;height:22px"></div>
+          <div class="drip drip-b" style="left:58px;height:32px"></div>
+          <div class="drip drip-b" style="left:100px;height:18px"></div>
+          <div class="drip drip-b" style="left:148px;height:28px"></div>
+          <div class="drip drip-b" style="left:192px;height:15px"></div>
+        </div>
+        <div class="plate"></div>
       </div>
     </div>
     <button class="btn-blow" id="blowBtn" onclick="blowCandles()">blow 🌬️</button>
@@ -302,195 +360,187 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 </div>
 
 <script>
-// ===== PARTICLES =====
+// ===== CURSOR =====
+const cursor=document.getElementById('cursor');
+let mx=window.innerWidth/2,my=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+document.addEventListener('mousedown',()=>cursor.style.fontSize='28px');
+document.addEventListener('mouseup',()=>cursor.style.fontSize='22px');
+(function tick(){cursor.style.left=mx+'px';cursor.style.top=my+'px';requestAnimationFrame(tick)})();
+
+// ===== RAIN =====
 (function(){
-  const c=document.getElementById('particles');
-  const colors=['rgba(196,181,253,.3)','rgba(251,191,36,.2)','rgba(244,114,182,.25)','rgba(124,58,237,.3)'];
+  const c=document.getElementById('rain');
+  const drops=['🌸','✦','·','✧','🌹','💜','✦','·'];
   setInterval(()=>{
-    const p=document.createElement('div');
-    p.className='particle';
-    const sz=2+Math.random()*5;
-    p.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${8+Math.random()*12}s`;
-    c.appendChild(p);
-    setTimeout(()=>p.remove(),20000);
-  },600);
+    const d=document.createElement('div');
+    d.className='raindrop';
+    d.textContent=drops[Math.floor(Math.random()*drops.length)];
+    const sz=8+Math.random()*11,dur=6+Math.random()*8;
+    const op=0.25+Math.random()*0.4;
+    d.style.cssText=`left:${Math.random()*100}%;font-size:${sz}px;color:rgba(196,181,253,${op});animation-duration:${dur}s`;
+    c.appendChild(d);
+    setTimeout(()=>d.remove(),(dur+1)*1000);
+  },400);
 })();
 
-// ===== PAGE NAVIGATION =====
-let currentPage='landing';
-function goTo(id){
-  const cur=document.getElementById(currentPage);
-  const next=document.getElementById(id);
-  cur.classList.remove('active');
+// ===== PAGE NAV =====
+let cur=0;
+function goTo(n){
+  const pages=document.querySelectorAll('.page');
+  pages[cur].classList.add('out');
+  pages[cur].classList.remove('active');
   setTimeout(()=>{
-    next.classList.add('active');
-    next.scrollTop=0;
-    currentPage=id;
-    if(id==='cakePage')buildCandles();
-  },400);
+    pages[cur].classList.remove('out');
+    cur=n;
+    pages[n].classList.add('active');
+    pages[n].scrollTop=0;
+    if(n===4){buildCandles();addSparkles();startCakeRotation()}
+  },620);
 }
 
 // ===== MEMORY GAME =====
 const emojis=['🐧','🌹','🍵','🎶','🥭','🍜','🌿','💜'];
 let cards=[],flipped=[],pairs=0,moves=0,locked=false;
-
 function initGame(){
   cards=[...emojis,...emojis].sort(()=>Math.random()-.5);
   flipped=[];pairs=0;moves=0;locked=false;
   document.getElementById('moveCount').textContent='0';
   document.getElementById('matchCount').textContent='0';
-  document.getElementById('gameMsg').textContent='flip two cards to start';
-  const b=document.getElementById('board');
-  b.innerHTML='';
+  document.getElementById('gameMsg').textContent='flip two cards to start 🐧';
+  const b=document.getElementById('board');b.innerHTML='';
   cards.forEach((e,i)=>{
-    const card=document.createElement('div');
-    card.className='card';
+    const card=document.createElement('div');card.className='card';
     card.innerHTML=`<div class="card-front">✦</div><div class="card-back">${e}</div>`;
-    card.addEventListener('click',()=>flipCard(card,i));
-    b.appendChild(card);
+    card.addEventListener('click',()=>flipCard(card,i));b.appendChild(card);
   });
 }
-
 function flipCard(card,i){
   if(locked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
-  card.classList.add('flipped');
-  flipped.push({card,i,e:cards[i]});
+  card.classList.add('flipped');flipped.push({card,i,e:cards[i]});
   if(flipped.length===2){
-    moves++;
-    document.getElementById('moveCount').textContent=moves;
-    locked=true;
+    moves++;document.getElementById('moveCount').textContent=moves;locked=true;
     const[a,b]=flipped;
     if(a.e===b.e){
-      pairs++;
-      document.getElementById('matchCount').textContent=pairs;
+      pairs++;document.getElementById('matchCount').textContent=pairs;
       a.card.classList.add('matched');b.card.classList.add('matched');
       flipped=[];locked=false;
       if(pairs===8)gameWon();
-      else document.getElementById('gameMsg').textContent=['nice 🐧','yes 💜','keep going ✦','got it 🌹'][Math.floor(Math.random()*4)];
+      else document.getElementById('gameMsg').textContent=['nice 🐧','got it 💜','keep going ✦','yes ✧'][Math.floor(Math.random()*4)];
     }else{
-      document.getElementById('gameMsg').textContent=['nope 🐧','try again','close ✦'][Math.floor(Math.random()*3)];
+      document.getElementById('gameMsg').textContent=['not quite 🐧','try again ·','close ✦'][Math.floor(Math.random()*3)];
       setTimeout(()=>{a.card.classList.remove('flipped');b.card.classList.remove('flipped');flipped=[];locked=false},800);
     }
   }
 }
-
 function gameWon(){
-  document.getElementById('gameMsg').textContent='you did it 🐧💜';
-  fireConfetti();
-  setTimeout(()=>goTo('photosPage'),1800);
+  document.getElementById('gameMsg').textContent='all matched 🐧💜';
+  confetti();setTimeout(()=>goTo(2),1800);
 }
 
-// ===== SURPRISE PAGE =====
+// ===== SURPRISE =====
 let noClicks=0;
-const noMessages=[
-  'the penguins are upset 😤',
-  'seriously? 🐧💢',
-  'you\'re making them angry...',
-  'the waddle of disapproval grows',
-  'SOPHIA. 🐧🐧🐧',
-  'the penguins are staging a revolt',
-  'last chance before mutiny...',
-  'okay fine. but the penguins remember.',
-  'they will never forget this.',
-  'just say yes already 🐧💜'
-];
-const sadPenguins=['😤','😠','🐧','😡','💢','😾','🙄','😒'];
-
+const noMsgs=['the penguins are upset 😤','seriously? 🐧💢','you\'re making them angry...','the waddle of disapproval grows','SOPHIA. 🐧🐧🐧','the penguins are staging a revolt','last chance before mutiny...','okay fine. but the penguins remember.','they will never forget this.','just say yes already 🐧💜'];
+const sadP=['😤','😠','🐧','😡','💢','😾','🙄','😒'];
 function noMainClick(){
   noClicks++;
-  // Show meter
-  const wrap=document.getElementById('meterWrap');
-  wrap.classList.add('show');
-  // Fill meter
-  const pct=Math.min(noClicks*10,100);
-  document.getElementById('meterFill').style.width=pct+'%';
-  // Message
-  document.getElementById('meterText').textContent=noMessages[Math.min(noClicks-1,noMessages.length-1)];
-  // Shake screen
+  document.getElementById('meterWrap').classList.add('show');
+  document.getElementById('meterFill').style.width=Math.min(noClicks*10,100)+'%';
+  document.getElementById('meterText').textContent=noMsgs[Math.min(noClicks-1,noMsgs.length-1)];
   document.getElementById('app').classList.add('shaking');
   setTimeout(()=>document.getElementById('app').classList.remove('shaking'),500);
-  // Spawn sad penguins
-  const count=Math.min(3+noClicks,12);
-  for(let i=0;i<count;i++){
+  for(let i=0;i<Math.min(3+noClicks,12);i++){
     setTimeout(()=>{
-      const p=document.createElement('div');
-      p.className='sad-penguin';
-      p.textContent=sadPenguins[Math.floor(Math.random()*sadPenguins.length)];
+      const p=document.createElement('div');p.className='sad-penguin';
+      p.textContent=sadP[Math.floor(Math.random()*sadP.length)];
       p.style.cssText=`left:${Math.random()*90+5}%;font-size:${1.5+Math.random()*1.5}rem;animation-duration:${2+Math.random()*3}s`;
-      document.body.appendChild(p);
-      setTimeout(()=>p.remove(),5000);
+      document.body.appendChild(p);setTimeout(()=>p.remove(),5000);
     },i*80);
   }
-  // Shrink no button
   const btn=document.getElementById('noMainBtn');
   btn.style.fontSize=Math.max(.6,1-.04*noClicks)+'rem';
   btn.style.padding=`${Math.max(6,14-noClicks)}px ${Math.max(16,36-noClicks*2)}px`;
-  if(noClicks>=10){
-    btn.style.opacity='.3';
-    btn.textContent='...fine';
-  }
+  if(noClicks>=10){btn.style.opacity='.3';btn.textContent='...fine';}
 }
+function yesClick(){confetti();setTimeout(()=>goTo(4),800)}
 
-function yesClick(){
-  fireConfetti();
-  setTimeout(()=>goTo('cakePage'),800);
-}
-
-// ===== CAKE =====
-let candlesBuilt=false;
+// ===== 3D CAKE =====
+let candlesBuilt=false,sparklesAdded=false,rotationStarted=false;
 function buildCandles(){
-  if(candlesBuilt)return;
-  candlesBuilt=true;
+  if(candlesBuilt)return;candlesBuilt=true;
   const row=document.getElementById('candlesRow');
   for(let i=0;i<19;i++){
-    const c=document.createElement('div');
-    c.className='candle';
-    const flame=document.createElement('div');
-    flame.className='flame';
-    flame.style.animationDelay=(Math.random()*.3)+'s';
-    const smoke=document.createElement('div');
-    smoke.className='smoke';
-    c.appendChild(flame);
-    c.appendChild(smoke);
-    row.appendChild(c);
+    const c=document.createElement('div');c.className='candle-3d';
+    const flame=document.createElement('div');flame.className='flame-3d';
+    flame.style.animationDelay=(Math.random()*.2)+'s';
+    const smoke=document.createElement('div');smoke.className='smoke-3d';
+    c.appendChild(flame);c.appendChild(smoke);row.appendChild(c);
   }
+}
+function addSparkles(){
+  if(sparklesAdded)return;sparklesAdded=true;
+  const scene=document.getElementById('cakeScene');
+  const chars=['✦','✧','·','⋆','✦','★'];
+  for(let i=0;i<14;i++){
+    const s=document.createElement('div');s.className='cake-sparkle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.cssText=`left:${8+Math.random()*84}%;top:${3+Math.random()*72}%;color:rgba(255,215,0,${.25+Math.random()*.45});animation-delay:${Math.random()*2}s;animation-duration:${1.5+Math.random()*1.5}s`;
+    scene.appendChild(s);
+  }
+}
+// Smooth JS rotation for the cake
+let cakeAngle=0;
+function startCakeRotation(){
+  if(rotationStarted)return;rotationStarted=true;
+  const cake=document.getElementById('cake3d');
+  let time=0;
+  function animate(){
+    time+=0.012;
+    cakeAngle+=0.15;
+    const floatY=Math.sin(time)*10;
+    cake.style.transform=`rotateX(15deg) rotateY(${cakeAngle}deg) translateY(${floatY}px)`;
+    if(rotationStarted) requestAnimationFrame(animate);
+  }
+  cake.style.animation='none';
+  animate();
 }
 
 function blowCandles(){
-  const flames=document.querySelectorAll('#candlesRow .flame');
-  const smokes=document.querySelectorAll('#candlesRow .smoke');
-  // Blow out candles one by one with randomized delays
+  const flames=document.querySelectorAll('#candlesRow .flame-3d');
+  const smokes=document.querySelectorAll('#candlesRow .smoke-3d');
+  // Stop rotation, settle cake
+  rotationStarted=false;
+  const cake=document.getElementById('cake3d');
+  cake.style.transform='rotateX(15deg) rotateY(0deg) translateY(0)';
+  cake.style.transition='transform 1s ease';
+  // Blow out candles
   const indices=[...Array(19).keys()].sort(()=>Math.random()-.5);
   indices.forEach((idx,i)=>{
     setTimeout(()=>{
       flames[idx].classList.add('out');
       smokes[idx].classList.add('show');
-    },200+i*120);
+    },300+i*100);
   });
-  // Hide blow button, show message
+  document.getElementById('blowBtn').classList.add('blown');
   setTimeout(()=>{
-    document.getElementById('blowBtn').style.display='none';
     document.getElementById('finalMsg').classList.add('show');
-    fireConfetti();
-  },200+19*120+400);
+    confetti();
+  },300+19*100+600);
 }
 
 // ===== CONFETTI =====
-function fireConfetti(){
-  const items=['💜','🌸','✦','🐧','✧','🌹','💛','🎉','⭐','🥳'];
+function confetti(){
+  const items=['💜','🌸','✦','🐧','✧','🌹','💛','🎉','⭐'];
   for(let i=0;i<55;i++){
     setTimeout(()=>{
-      const p=document.createElement('div');
-      p.className='confetti-piece';
+      const p=document.createElement('div');p.className='cf';
       p.textContent=items[Math.floor(Math.random()*items.length)];
-      p.style.cssText=`left:${Math.random()*100}%;font-size:${10+Math.random()*18}px;animation-duration:${2+Math.random()*3}s`;
-      document.body.appendChild(p);
-      setTimeout(()=>p.remove(),5500);
+      p.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*18}px;animation-duration:${2.2+Math.random()*3}s`;
+      document.body.appendChild(p);setTimeout(()=>p.remove(),5500);
     },i*45);
   }
 }
 
-// Init
 initGame();
 </script>
 </body>
