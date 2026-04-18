@@ -9,132 +9,142 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --cream:#FFF8F0;
-  --cream-dark:#F5EDE3;
+  --cream-dark:#F0E8DD;
   --charcoal:#3a3a3a;
   --charcoal-light:#6b6b6b;
   --charcoal-dim:#a0a0a0;
   --lavender:#c4a8e0;
-  --lavender-soft:rgba(196,168,224,.15);
+  --lavender-soft:rgba(196,168,224,.12);
   --pink:#f0b6c4;
-  --pink-soft:rgba(240,182,196,.2);
-  --gold:#e8c36a;
   --white:#ffffff;
 }
-
 html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-family:'Quicksand',sans-serif}
 #app{width:100vw;height:100vh;position:relative;overflow:hidden}
-
-/* Pages */
 .page{
   position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:28px 20px;overflow-y:auto;opacity:0;pointer-events:none;
-  transition:opacity .5s ease,transform .5s ease;transform:translateY(12px);
-  background:var(--cream);
+  transition:opacity .5s ease,transform .5s ease;transform:translateY(12px);background:var(--cream);
 }
 .page.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.page::-webkit-scrollbar{width:4px}
+.page::-webkit-scrollbar-track{background:transparent}
+.page::-webkit-scrollbar-thumb{background:var(--cream-dark);border-radius:4px}
 
-/* Typography */
-.t-arcade{font-family:'Silkscreen',cursive;letter-spacing:.02em}
-.t-round{font-family:'Fredoka One',cursive}
-.t-body{font-family:'Quicksand',sans-serif}
+/* Rain */
+.rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.raindrop{position:absolute;top:-30px;animation:rfAll linear infinite}
+@keyframes rfAll{
+  0%{transform:translateY(-30px) translateX(0) rotate(0);opacity:.5}
+  50%{transform:translateY(50vh) translateX(12px) rotate(160deg);opacity:.25}
+  100%{transform:translateY(108vh) translateX(-8px) rotate(310deg);opacity:0}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-/* ===== PAGE 0 — LANDING ===== */
+/* ===== PAGE 0 ===== */
 #p0{justify-content:center;gap:0}
-.landing-penguin{width:160px;height:160px;margin-bottom:24px;animation:float 3s ease-in-out infinite}
+.landing-penguin{width:150px;height:150px;margin-bottom:20px;animation:float 3s ease-in-out infinite}
 .landing-penguin img{width:100%;height:100%;object-fit:contain}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.landing-name{font-family:'Silkscreen',cursive;font-size:clamp(2rem,7vw,3.4rem);color:var(--charcoal);margin-bottom:8px;text-align:center}
-.landing-sub{font-family:'Quicksand',sans-serif;font-size:clamp(.85rem,2.5vw,1.05rem);color:var(--charcoal-light);margin-bottom:28px;text-align:center;font-weight:500}
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px;max-width:480px}
+.landing-name{font-family:'Silkscreen',cursive;font-size:clamp(2rem,7vw,3.2rem);color:var(--charcoal);margin-bottom:8px;text-align:center}
+.landing-sub{font-family:'Quicksand',sans-serif;font-size:clamp(.82rem,2.5vw,1rem);color:var(--charcoal-light);margin-bottom:26px;text-align:center;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:24px;max-width:460px}
 .chip{
   background:var(--white);border:1.5px solid var(--cream-dark);border-radius:50px;
-  padding:6px 14px;font-size:.72rem;font-family:'Silkscreen',cursive;
-  color:var(--charcoal);display:flex;align-items:center;gap:5px;
-  transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.04)
+  padding:5px 13px;font-size:.65rem;font-family:'Silkscreen',cursive;
+  color:var(--charcoal);display:flex;align-items:center;gap:4px;
+  transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.03)
 }
 .chip:hover{border-color:var(--lavender);background:var(--lavender-soft);transform:translateY(-2px)}
-
+.landing-penguins{display:flex;gap:12px;align-items:flex-end;margin-bottom:24px}
+.landing-penguins img{height:55px;object-fit:contain;opacity:.45;animation:float 3s ease-in-out infinite}
+.landing-penguins img:nth-child(2){animation-delay:.4s;height:48px}
+.landing-penguins img:nth-child(3){animation-delay:.8s;height:52px}
 .btn-main{
   background:var(--charcoal);color:var(--cream);border:none;
-  padding:14px 44px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.85rem;
+  padding:14px 44px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.82rem;
   cursor:pointer;transition:all .25s;letter-spacing:.05em
 }
 .btn-main:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
-.btn-main:active{transform:translateY(0)}
-
 .btn-outline{
   background:transparent;border:1.5px solid var(--charcoal-dim);color:var(--charcoal);
-  padding:12px 32px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.75rem;
-  cursor:pointer;transition:all .25s;letter-spacing:.05em
+  padding:11px 28px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.7rem;
+  cursor:pointer;transition:all .25s
 }
 .btn-outline:hover{border-color:var(--charcoal);background:rgba(0,0,0,.03);transform:translateY(-2px)}
+.section-label{font-family:'Silkscreen',cursive;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--charcoal-dim);margin-bottom:8px}
+.section-title{font-family:'Silkscreen',cursive;font-size:clamp(1rem,3.5vw,1.4rem);color:var(--charcoal);margin-bottom:6px}
 
 /* ===== PAGE 1 — GAME ===== */
 #p1{justify-content:center;padding-top:20px}
-.game-wrap{width:100%;max-width:440px;text-align:center}
-.section-label{font-family:'Silkscreen',cursive;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--charcoal-dim);margin-bottom:8px}
-.section-title{font-family:'Silkscreen',cursive;font-size:clamp(1.1rem,3.5vw,1.5rem);color:var(--charcoal);margin-bottom:6px}
-.game-hint{font-size:.78rem;color:var(--charcoal-light);margin-bottom:14px;font-weight:500}
-.game-stats{font-size:.7rem;color:var(--charcoal-dim);letter-spacing:.15em;margin-bottom:10px;font-weight:600;font-family:'Silkscreen',cursive}
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:320px;margin:0 auto 14px}
+.game-wrap{width:100%;max-width:420px;text-align:center}
+.game-deco{display:flex;justify-content:center;gap:10px;margin-bottom:12px}
+.game-deco img{height:42px;object-fit:contain;opacity:.3}
+.game-hint{font-size:.76rem;color:var(--charcoal-light);margin-bottom:12px;font-weight:500}
+.game-stats{font-size:.6rem;color:var(--charcoal-dim);letter-spacing:.15em;margin-bottom:10px;font-weight:600;font-family:'Silkscreen',cursive}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:300px;margin:0 auto 12px}
 .card{aspect-ratio:1;border-radius:10px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;position:relative}
 .card.flipped,.card.matched{transform:rotateY(180deg)}
 .card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:10px}
-.card-front{background:var(--white);border:1.5px solid var(--cream-dark);font-size:1rem;color:var(--charcoal-dim);box-shadow:0 1px 6px rgba(0,0,0,.05)}
-.card-back{transform:rotateY(180deg);font-size:1.6rem;background:var(--white);border:1.5px solid var(--lavender)}
+.card-front{background:var(--white);border:1.5px solid var(--cream-dark);font-size:1rem;color:var(--charcoal-dim);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card-back{transform:rotateY(180deg);font-size:1.5rem;background:var(--white);border:1.5px solid var(--lavender)}
 .card.matched .card-back{background:var(--lavender-soft);border-color:var(--lavender)}
-.game-msg{font-family:'Quicksand',sans-serif;font-weight:600;font-size:1rem;color:var(--charcoal-light);min-height:28px;margin-bottom:10px}
+.game-msg{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.92rem;color:var(--charcoal-light);min-height:26px;margin-bottom:8px}
 .btn-sm{
   background:transparent;border:1.5px solid var(--cream-dark);color:var(--charcoal-dim);
-  padding:7px 18px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.62rem;
-  cursor:pointer;transition:all .2s;letter-spacing:.1em
+  padding:6px 16px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.58rem;
+  cursor:pointer;transition:all .2s
 }
 .btn-sm:hover{border-color:var(--charcoal-dim);color:var(--charcoal)}
 
 /* ===== PAGE 2 — PHOTOS ===== */
-#p2{justify-content:flex-start;padding-top:28px;padding-bottom:40px}
-.photos-sub{font-family:'Quicksand',sans-serif;font-weight:500;color:var(--charcoal-light);font-size:.9rem;margin-bottom:24px;text-align:center}
+#p2{justify-content:flex-start;padding-top:24px;padding-bottom:50px}
+.photos-sub{font-family:'Quicksand',sans-serif;font-weight:500;color:var(--charcoal-light);font-size:.85rem;margin-bottom:20px;text-align:center}
 .photo-grid{
-  display:flex;flex-wrap:wrap;gap:16px;justify-content:center;
-  max-width:720px;width:100%;margin:0 auto 28px
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;
+  max-width:760px;width:100%;margin:0 auto 24px
 }
 .photo-frame{
-  position:relative;border-radius:12px;overflow:hidden;
+  position:relative;border-radius:10px;overflow:hidden;
   background:var(--white);border:2px solid var(--cream-dark);
-  transition:all .3s;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.04);
-  display:flex;align-items:center;justify-content:center;padding:8px
+  transition:all .3s;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04);flex-shrink:0
 }
-.photo-frame:hover{transform:translateY(-4px);border-color:var(--lavender);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.photo-frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:6px}
+.photo-frame:hover{transform:translateY(-3px);border-color:var(--lavender);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.photo-frame img{display:block;width:100%;height:auto}
+.photo-frame.landscape{width:220px}
+.photo-frame.portrait{width:140px}
+.photo-frame.collage{width:100px}
+.photo-frame.penguin{width:95px;border-style:dashed;border-color:rgba(196,168,224,.5)}
 .photo-overlay{
-  position:absolute;inset:0;background:linear-gradient(to top,rgba(255,248,240,.9) 0%,transparent 50%);
-  opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;justify-content:center;padding:12px
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(255,248,240,.92) 0%,transparent 100%);
+  opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;justify-content:center;padding:10px;height:40%
 }
 .photo-frame:hover .photo-overlay{opacity:1}
-.photo-caption{font-family:'Silkscreen',cursive;font-size:.7rem;color:var(--charcoal)}
+.photo-caption{font-family:'Silkscreen',cursive;font-size:.5rem;color:var(--charcoal)}
 
 /* ===== PAGE 3 — SURPRISE ===== */
 #p3{justify-content:center}
-.surprise-wrap{text-align:center;max-width:460px;width:100%}
-.surprise-penguins{font-size:2.6rem;margin-bottom:20px;animation:waddle 1.2s ease-in-out infinite}
+.surprise-wrap{text-align:center;max-width:440px;width:100%}
+.surprise-penguin-img{width:110px;margin:0 auto 16px;animation:waddle 1.2s ease-in-out infinite}
+.surprise-penguin-img img{width:100%;object-fit:contain}
 @keyframes waddle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-.surprise-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.surprise-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
 .btn-yes{
-  background:#5cb85c;color:white;padding:14px 36px;border:none;border-radius:8px;
-  font-family:'Silkscreen',cursive;font-size:.85rem;cursor:pointer;transition:all .25s
+  background:#5cb85c;color:white;padding:13px 34px;border:none;border-radius:8px;
+  font-family:'Silkscreen',cursive;font-size:.8rem;cursor:pointer;transition:all .25s
 }
 .btn-yes:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(92,184,92,.3)}
 .btn-no-main{
-  background:#e85d5d;color:white;padding:14px 36px;border:none;border-radius:8px;
-  font-family:'Silkscreen',cursive;font-size:.85rem;cursor:pointer;transition:all .25s
+  background:#e85d5d;color:white;padding:13px 34px;border:none;border-radius:8px;
+  font-family:'Silkscreen',cursive;font-size:.8rem;cursor:pointer;transition:all .25s
 }
 .btn-no-main:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,93,93,.3)}
-.meter-wrap{margin-top:20px;max-width:300px;margin-left:auto;margin-right:auto;display:none}
+.meter-wrap{margin-top:18px;max-width:280px;margin-left:auto;margin-right:auto;display:none}
 .meter-wrap.show{display:block;animation:fadeUp .4s both}
-.meter-label{font-size:.6rem;color:var(--charcoal-dim);letter-spacing:.15em;margin-bottom:6px;font-family:'Silkscreen',cursive}
-.meter-bar{width:100%;height:18px;background:var(--cream-dark);border-radius:9px;overflow:hidden;border:1.5px solid rgba(0,0,0,.06)}
-.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#f0b6c4,#e8856e,#e85d5d);border-radius:9px;transition:width .4s ease}
-.meter-text{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.9rem;color:var(--charcoal-light);margin-top:10px;min-height:24px}
+.meter-label{font-size:.55rem;color:var(--charcoal-dim);letter-spacing:.12em;margin-bottom:6px;font-family:'Silkscreen',cursive}
+.meter-bar{width:100%;height:16px;background:var(--cream-dark);border-radius:8px;overflow:hidden;border:1.5px solid rgba(0,0,0,.05)}
+.meter-fill{height:100%;width:0%;background:linear-gradient(90deg,#f0b6c4,#e8856e,#e85d5d);border-radius:8px;transition:width .4s ease}
+.meter-text{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.82rem;color:var(--charcoal-light);margin-top:8px;min-height:22px}
 .sad-penguin{position:fixed;pointer-events:none;z-index:100;animation:penguinFall linear forwards}
 @keyframes penguinFall{0%{transform:translateY(-60px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
 @keyframes shake{0%,100%{transform:translate(0)}10%{transform:translate(-6px,3px)}20%{transform:translate(5px,-5px)}30%{transform:translate(-3px,6px)}40%{transform:translate(6px,-3px)}50%{transform:translate(-5px,2px)}60%{transform:translate(3px,-6px)}70%{transform:translate(-6px,5px)}80%{transform:translate(5px,3px)}90%{transform:translate(-3px,-5px)}}
@@ -142,64 +152,53 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
 
 /* ===== PAGE 4 — CAKE ===== */
 #p4{justify-content:center}
-.cake-page-wrap{text-align:center;max-width:520px;width:100%}
-.cake-title{font-family:'Silkscreen',cursive;font-size:clamp(1.1rem,3.5vw,1.5rem);color:var(--charcoal);margin-bottom:20px}
-.cake-img-wrap{margin:0 auto 28px;position:relative;display:inline-block}
-.cake-img-wrap img{width:220px;height:220px;object-fit:contain;animation:cakeFloat 3s ease-in-out infinite}
-@keyframes cakeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.cake-sparkle{position:absolute;pointer-events:none;animation:sparkle 2s ease-in-out infinite;font-size:.7rem}
-@keyframes sparkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.2)}}
+.cake-page-wrap{text-align:center;max-width:480px;width:100%}
+.cake-title{font-family:'Silkscreen',cursive;font-size:clamp(1rem,3.5vw,1.4rem);color:var(--charcoal);margin-bottom:18px}
+.cake-area{position:relative;display:inline-block;margin:0 auto 24px}
+.cake-area .main-cake{width:200px;height:200px;object-fit:contain;animation:float 3s ease-in-out infinite}
+.cake-deco{position:absolute;pointer-events:none;object-fit:contain;opacity:.3}
+.cake-deco.left{width:60px;left:-55px;bottom:10px;animation:float 3s ease-in-out infinite;animation-delay:.5s}
+.cake-deco.right{width:55px;right:-50px;bottom:15px;animation:float 3s ease-in-out infinite;animation-delay:1s}
+.cake-sparkle{position:absolute;pointer-events:none;animation:sparkle 2s ease-in-out infinite;font-size:.65rem}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.15)}}
 .btn-blow{
-  background:#7eb8d8;color:white;padding:14px 44px;border:none;border-radius:8px;
-  font-family:'Silkscreen',cursive;font-size:.85rem;cursor:pointer;transition:all .25s
+  background:#7eb8d8;color:white;padding:13px 40px;border:none;border-radius:8px;
+  font-family:'Silkscreen',cursive;font-size:.82rem;cursor:pointer;transition:all .25s
 }
 .btn-blow:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(126,184,216,.35)}
 .btn-blow.blown{opacity:0;pointer-events:none;transition:opacity .5s}
-
-.final-message{display:none;margin-top:24px;max-width:460px;width:100%}
+.final-message{display:none;margin-top:20px;max-width:440px;width:100%}
 .final-message.show{display:block;animation:fadeUp .8s both}
 .msg-card{
-  background:var(--white);border:2px solid var(--cream-dark);border-radius:16px;
-  padding:32px 28px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.04)
+  background:var(--white);border:2px solid var(--cream-dark);border-radius:14px;
+  padding:28px 24px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04)
 }
-.msg-to{font-family:'Silkscreen',cursive;font-size:1.2rem;color:var(--charcoal);margin-bottom:16px}
-.msg-body{font-family:'Quicksand',sans-serif;font-weight:500;font-size:.88rem;color:var(--charcoal-light);line-height:1.9;margin-bottom:18px}
-.msg-from{font-family:'Silkscreen',cursive;font-size:.85rem;color:var(--lavender)}
-.msg-hearts{font-size:1.6rem;margin-top:16px;letter-spacing:8px;animation:pulse 1.8s ease-in-out infinite}
+.msg-to{font-family:'Silkscreen',cursive;font-size:1.1rem;color:var(--charcoal);margin-bottom:14px}
+.msg-body{font-family:'Quicksand',sans-serif;font-weight:500;font-size:.85rem;color:var(--charcoal-light);line-height:1.85;margin-bottom:16px}
+.msg-from{font-family:'Silkscreen',cursive;font-size:.78rem;color:var(--lavender)}
+.msg-hearts{font-size:1.5rem;margin-top:14px;letter-spacing:8px;animation:pulse 1.8s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-
-/* CONFETTI */
 .cf{position:fixed;top:-20px;z-index:10001;animation:cfall linear forwards;pointer-events:none}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
 
-/* Decorative penguin */
-.deco-penguin{position:fixed;pointer-events:none;opacity:.06;z-index:0}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-/* RAIN — soft version */
-.rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
-.raindrop{position:absolute;top:-30px;animation:rfAll linear infinite;will-change:transform,opacity}
-@keyframes rfAll{
-  0%{transform:translateY(-30px) translateX(0) rotate(0);opacity:.6}
-  50%{transform:translateY(50vh) translateX(15px) rotate(160deg);opacity:.35}
-  100%{transform:translateY(108vh) translateX(-10px) rotate(310deg);opacity:0}
-}
-
 @media(max-width:640px){
-  .board{max-width:260px;gap:6px}
-  .photo-grid{gap:10px}
+  .board{max-width:260px;gap:5px}
+  .photo-frame.landscape{width:155px}
+  .photo-frame.portrait{width:115px}
+  .photo-frame.collage{width:80px}
+  .photo-frame.penguin{width:75px}
   .landing-penguin{width:120px;height:120px}
+  .cake-area .main-cake{width:160px;height:160px}
+  .cake-deco.left{width:45px;left:-35px}
+  .cake-deco.right{width:42px;right:-32px}
 }
 </style>
 </head>
 <body>
-
 <div class="rain" id="rain"></div>
-
 <div id="app">
 
-<!-- ===== PAGE 0 — LANDING ===== -->
+<!-- PAGE 0 — LANDING -->
 <div class="page active" id="p0">
   <div class="landing-penguin"><img src="penguin_party.jpeg" alt="penguin with balloons"></div>
   <div class="landing-name">sophia bian.</div>
@@ -215,12 +214,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
     <div class="chip">🌿 nature!</div>
     <div class="chip">💜 purple!</div>
   </div>
+  <div class="landing-penguins">
+    <img src="penguin_statue.jpeg" alt="">
+    <img src="super_cute_penguin_wave.jpeg" alt="">
+    <img src="penguin_fish.png" alt="">
+  </div>
   <button class="btn-main" onclick="goTo(1)">click me!</button>
 </div>
 
-<!-- ===== PAGE 1 — GAME ===== -->
+<!-- PAGE 1 — GAME -->
 <div class="page" id="p1">
   <div class="game-wrap">
+    <div class="game-deco">
+      <img src="penguin_statue.jpeg" alt="">
+      <img src="super_cute_penguin_wave.jpeg" alt="">
+    </div>
     <div class="section-label">a little game</div>
     <div class="section-title">match the pairs 🐧</div>
     <p class="game-hint">find all 8 — something's waiting at the end.</p>
@@ -231,27 +239,32 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
   </div>
 </div>
 
-<!-- ===== PAGE 2 — PHOTOS ===== -->
+<!-- PAGE 2 — PHOTOS -->
 <div class="page" id="p2">
   <div class="section-label">a year and some</div>
   <div class="section-title" style="margin-bottom:4px">us 💜</div>
   <p class="photos-sub">the ones worth keeping</p>
   <div class="photo-grid">
-    <div class="photo-frame"><img src="penguin_party.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">🐧💜</span></div></div>
-    <div class="photo-frame"><img src="penguin_fish.png" alt=""><div class="photo-overlay"><span class="photo-caption">adventures</span></div></div>
-    <div class="photo-frame"><img src="penguin_statue.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">summer beach day</span></div></div>
-    <div class="photo-frame"><img src="super_cute_penguin_wave.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">cal day</span></div></div>
-    <div class="photo-frame"><img src="cake.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">formal nights</span></div></div>
+    <div class="photo-frame landscape"><img src="pic1.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">🐧💜</span></div></div>
+    <div class="photo-frame landscape"><img src="pic2.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">adventures</span></div></div>
+    <div class="photo-frame penguin"><img src="penguin_party.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">🐧</span></div></div>
+    <div class="photo-frame landscape"><img src="pic3.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">summer beach day</span></div></div>
+    <div class="photo-frame portrait"><img src="pic5.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">cal day</span></div></div>
+    <div class="photo-frame penguin"><img src="penguin_statue.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">🐧</span></div></div>
+    <div class="photo-frame collage"><img src="pic6.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">formal nights</span></div></div>
+    <div class="photo-frame penguin"><img src="penguin_fish.png" alt=""><div class="photo-overlay"><span class="photo-caption">🐟</span></div></div>
+    <div class="photo-frame collage"><img src="pic8.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">✨</span></div></div>
+    <div class="photo-frame penguin"><img src="super_cute_penguin_wave.jpeg" alt=""><div class="photo-overlay"><span class="photo-caption">hi!</span></div></div>
   </div>
   <button class="btn-outline" onclick="goTo(3)">keep going →</button>
 </div>
 
-<!-- ===== PAGE 3 — SURPRISE ===== -->
+<!-- PAGE 3 — SURPRISE -->
 <div class="page" id="p3">
   <div class="surprise-wrap">
-    <div class="surprise-penguins">🐧🐧🐧</div>
+    <div class="surprise-penguin-img"><img src="penguin_fish.png" alt="penguin"></div>
     <div class="section-title">CLICK FOR A SURPRISE!!!!</div>
-    <p style="color:var(--charcoal-dim);font-size:.75rem;margin-bottom:24px;font-family:'Silkscreen',cursive">choose wisely.</p>
+    <p style="color:var(--charcoal-dim);font-size:.65rem;margin-bottom:22px;font-family:'Silkscreen',cursive">choose wisely.</p>
     <div class="surprise-btns">
       <button class="btn-yes" onclick="yesClick()">yes!!!</button>
       <button class="btn-no-main" id="noMainBtn" onclick="noMainClick()">no</button>
@@ -264,12 +277,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
   </div>
 </div>
 
-<!-- ===== PAGE 4 — CAKE ===== -->
+<!-- PAGE 4 — CAKE -->
 <div class="page" id="p4">
   <div class="cake-page-wrap">
     <div class="cake-title">make a wish, sophia ✨</div>
-    <div class="cake-img-wrap" id="cakeWrap">
-      <img src="cake.jpeg" alt="birthday cake" id="cakeImg">
+    <div class="cake-area" id="cakeArea">
+      <img class="cake-deco left" src="penguin_statue.jpeg" alt="">
+      <img class="main-cake" src="cake.jpeg" alt="birthday cake" id="cakeImg">
+      <img class="cake-deco right" src="super_cute_penguin_wave.jpeg" alt="">
     </div>
     <button class="btn-blow" id="blowBtn" onclick="blowCandles()">blow 🌬️</button>
     <div class="final-message" id="finalMsg">
@@ -279,7 +294,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
           I know you've been stressed recently, so I wanted to make something that could make your day a little bit better. I'm always here for you whenever you need me, and I'll always listen to you whenever you need someone to talk to!<br><br>
           Happy 19th Birthday Sophia. You're such an amazing person and I'm so glad I get to celebrate your 19th with you.
         </div>
-        <div class="msg-from">love, Spench 🐧</div>
+        <div class="msg-from">love, hannah 🐧</div>
         <div class="msg-hearts">🐧 💜 🌹</div>
       </div>
     </div>
@@ -287,24 +302,21 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-fa
 </div>
 
 </div>
-
 <script>
-// ===== SOFT RAIN =====
 (function(){
   const c=document.getElementById('rain');
-  const drops=['·','✦','✧','·','·','✦'];
+  const drops=['·','✦','✧','·','·'];
   setInterval(()=>{
     const d=document.createElement('div');
     d.className='raindrop';
     d.textContent=drops[Math.floor(Math.random()*drops.length)];
-    const sz=6+Math.random()*8,dur=7+Math.random()*9;
-    d.style.cssText=`left:${Math.random()*100}%;font-size:${sz}px;color:rgba(196,168,224,${0.15+Math.random()*0.2});animation-duration:${dur}s`;
+    const sz=5+Math.random()*7,dur=8+Math.random()*10;
+    d.style.cssText='left:'+Math.random()*100+'%;font-size:'+sz+'px;color:rgba(196,168,224,'+(0.1+Math.random()*0.15)+');animation-duration:'+dur+'s';
     c.appendChild(d);
     setTimeout(()=>d.remove(),(dur+1)*1000);
-  },600);
+  },700);
 })();
 
-// ===== PAGE NAV =====
 let cur=0;
 function goTo(n){
   const pages=document.querySelectorAll('.page');
@@ -317,7 +329,6 @@ function goTo(n){
   },500);
 }
 
-// ===== MEMORY GAME =====
 const emojis=['🐧','🌹','🍵','🎶','🥭','🍜','🌿','💜'];
 let cards=[],flipped=[],pairs=0,moves=0,locked=false;
 function initGame(){
@@ -329,16 +340,16 @@ function initGame(){
   const b=document.getElementById('board');b.innerHTML='';
   cards.forEach((e,i)=>{
     const card=document.createElement('div');card.className='card';
-    card.innerHTML=`<div class="card-front">✦</div><div class="card-back">${e}</div>`;
+    card.innerHTML='<div class="card-front">✦</div><div class="card-back">'+e+'</div>';
     card.addEventListener('click',()=>flipCard(card,i));b.appendChild(card);
   });
 }
 function flipCard(card,i){
   if(locked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
-  card.classList.add('flipped');flipped.push({card,i,e:cards[i]});
+  card.classList.add('flipped');flipped.push({card:card,i:i,e:cards[i]});
   if(flipped.length===2){
     moves++;document.getElementById('moveCount').textContent=moves;locked=true;
-    const[a,b]=flipped;
+    const a=flipped[0],b=flipped[1];
     if(a.e===b.e){
       pairs++;document.getElementById('matchCount').textContent=pairs;
       a.card.classList.add('matched');b.card.classList.add('matched');
@@ -356,7 +367,6 @@ function gameWon(){
   confetti();setTimeout(()=>goTo(2),1800);
 }
 
-// ===== SURPRISE =====
 let noClicks=0;
 const noMsgs=['the penguins are upset','seriously? 🐧','you\'re making them angry...','the waddle of disapproval grows','SOPHIA. 🐧🐧🐧','the penguins are staging a revolt','last chance before mutiny...','okay fine. but the penguins remember.','they will never forget this.','just say yes already 🐧💜'];
 const sadP=['😤','😠','🐧','😡','💢','😾','🙄','😒'];
@@ -371,27 +381,26 @@ function noMainClick(){
     setTimeout(()=>{
       const p=document.createElement('div');p.className='sad-penguin';
       p.textContent=sadP[Math.floor(Math.random()*sadP.length)];
-      p.style.cssText=`left:${Math.random()*90+5}%;font-size:${1.5+Math.random()*1.5}rem;animation-duration:${2+Math.random()*3}s`;
+      p.style.cssText='left:'+( Math.random()*90+5)+'%;font-size:'+(1.5+Math.random()*1.5)+'rem;animation-duration:'+(2+Math.random()*3)+'s';
       document.body.appendChild(p);setTimeout(()=>p.remove(),5000);
     },i*80);
   }
   const btn=document.getElementById('noMainBtn');
-  btn.style.fontSize=Math.max(.5,0.85-.03*noClicks)+'rem';
-  btn.style.padding=`${Math.max(6,14-noClicks)}px ${Math.max(16,36-noClicks*2)}px`;
+  btn.style.fontSize=Math.max(.45,0.8-.03*noClicks)+'rem';
+  btn.style.padding=Math.max(5,13-noClicks)+'px '+Math.max(14,34-noClicks*2)+'px';
   if(noClicks>=10){btn.style.opacity='.3';btn.textContent='...fine';}
 }
 function yesClick(){confetti();setTimeout(()=>goTo(4),800)}
 
-// ===== CAKE SPARKLES =====
 let sparklesAdded=false;
 function addSparkles(){
   if(sparklesAdded)return;sparklesAdded=true;
-  const wrap=document.getElementById('cakeWrap');
+  const wrap=document.getElementById('cakeArea');
   const chars=['✦','✧','·','⋆','★'];
   for(let i=0;i<10;i++){
     const s=document.createElement('div');s.className='cake-sparkle';
     s.textContent=chars[Math.floor(Math.random()*chars.length)];
-    s.style.cssText=`left:${5+Math.random()*90}%;top:${5+Math.random()*80}%;color:rgba(228,195,106,${.3+Math.random()*.4});animation-delay:${Math.random()*2}s;animation-duration:${1.5+Math.random()*1.5}s`;
+    s.style.cssText='left:'+(5+Math.random()*90)+'%;top:'+(5+Math.random()*80)+'%;color:rgba(228,195,106,'+(0.25+Math.random()*.35)+');animation-delay:'+Math.random()*2+'s;animation-duration:'+(1.5+Math.random()*1.5)+'s';
     wrap.appendChild(s);
   }
 }
@@ -402,8 +411,8 @@ function blowCandles(){
   img.style.transition='transform .5s ease';
   img.style.transform='scale(1.05)';
   document.getElementById('blowBtn').classList.add('blown');
-  // Remove sparkles
-  document.querySelectorAll('.cake-sparkle').forEach(s=>{s.style.opacity='0';s.style.transition='opacity .5s'});
+  document.querySelectorAll('.cake-sparkle').forEach(function(s){s.style.opacity='0';s.style.transition='opacity .5s'});
+  document.querySelectorAll('.cake-deco').forEach(function(d){d.style.opacity='0';d.style.transition='opacity .8s'});
   setTimeout(()=>{
     img.style.transform='scale(1)';
     document.getElementById('finalMsg').classList.add('show');
@@ -411,19 +420,17 @@ function blowCandles(){
   },800);
 }
 
-// ===== CONFETTI =====
 function confetti(){
   const items=['💜','🌸','✦','🐧','✧','🌹','💛','🎉','⭐'];
   for(let i=0;i<50;i++){
     setTimeout(()=>{
       const p=document.createElement('div');p.className='cf';
       p.textContent=items[Math.floor(Math.random()*items.length)];
-      p.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*16}px;animation-duration:${2.2+Math.random()*3}s`;
+      p.style.cssText='left:'+Math.random()*100+'%;font-size:'+(11+Math.random()*15)+'px;animation-duration:'+(2.2+Math.random()*3)+'s';
       document.body.appendChild(p);setTimeout(()=>p.remove(),5500);
     },i*45);
   }
 }
-
 initGame();
 </script>
 </body>
