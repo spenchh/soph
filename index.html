@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for soph 🐧</title>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'%3E%3Cellipse cx='14' cy='18' rx='10' ry='13' fill='%233a3a3a'/%3E%3Cellipse cx='14' cy='20' rx='7' ry='9' fill='%23f0f0f0'/%3E%3Ccircle cx='10' cy='14' r='2.2' fill='white'/%3E%3Ccircle cx='18' cy='14' r='2.2' fill='white'/%3E%3Ccircle cx='10.5' cy='14.3' r='1.1' fill='%231a1a1a'/%3E%3Ccircle cx='18.5' cy='14.3' r='1.1' fill='%231a1a1a'/%3E%3Cellipse cx='14' cy='18.5' rx='1.8' ry='1' fill='%23e8856e'/%3E%3Cellipse cx='10' cy='28' rx='3' ry='1.5' fill='%23e8856e'/%3E%3Cellipse cx='18' cy='28' rx='3' ry='1.5' fill='%23e8856e'/%3E%3C/svg%3E") 14 16, auto;
+}
+
+button, .card, .pf, .lightbox {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'%3E%3Cellipse cx='14' cy='18' rx='10' ry='13' fill='%233a3a3a'/%3E%3Cellipse cx='14' cy='20' rx='7' ry='9' fill='%23f0f0f0'/%3E%3Ccircle cx='10' cy='14' r='2.2' fill='white'/%3E%3Ccircle cx='18' cy='14' r='2.2' fill='white'/%3E%3Ccircle cx='10.5' cy='14.3' r='1.1' fill='%231a1a1a'/%3E%3Ccircle cx='18.5' cy='14.3' r='1.1' fill='%231a1a1a'/%3E%3Cellipse cx='14' cy='18.5' rx='1.8' ry='1' fill='%23e8856e'/%3E%3Cellipse cx='10' cy='28' rx='3' ry='1.5' fill='%23e8856e'/%3E%3Cellipse cx='18' cy='28' rx='3' ry='1.5' fill='%23e8856e'/%3E%3C/svg%3E") 14 16, pointer;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#FFF8F0;--cream-dark:#F0E8DD;--ch:#3a3a3a;--ch-l:#6b6b6b;--ch-d:#a0a0a0;--lav:#c4a8e0;--lav-s:rgba(196,168,224,.12);--wh:#fff}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-family:'Quicksand',sans-serif}
+#app{width:100vw;height:100vh;position:relative;overflow:hidden}
+.page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .5s,transform .5s;transform:translateY(12px);background:var(--cream)}
+.page.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.page::-webkit-scrollbar{width:4px}.page::-webkit-scrollbar-thumb{background:var(--cream-dark);border-radius:4px}
+.rain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden}
+.raindrop{position:absolute;top:-30px;animation:rfAll linear infinite}
+@keyframes rfAll{0%{transform:translateY(-30px) rotate(0);opacity:.5}50%{transform:translateY(50vh) translateX(12px) rotate(160deg);opacity:.25}100%{transform:translateY(108vh) translateX(-8px) rotate(310deg);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes waddle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+  
+
+/* Landing */
+#p0{gap:0}
+.lp{width:180px;height:180px;margin-bottom:18px;animation:float 3s ease-in-out infinite}.lp img{width:100%;height:100%;object-fit:contain}
+.ln{font-family:'Silkscreen',cursive;font-size:clamp(2rem,7vw,3.2rem);color:var(--ch);margin-bottom:8px;text-align:center}
+.ls{font-size:clamp(.82rem,2.5vw,1rem);color:var(--ch-l);margin-bottom:24px;text-align:center;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:22px;max-width:460px}
+.chip{background:var(--wh);border:1.5px solid var(--cream-dark);border-radius:50px;padding:5px 13px;font-size:.65rem;font-family:'Silkscreen',cursive;color:var(--ch);transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.chip:hover{border-color:var(--lav);background:var(--lav-s);transform:translateY(-2px)}
+.lpengs{display:flex;gap:14px;align-items:flex-end;margin-bottom:22px}
+.lpengs img{height:75px;object-fit:contain;opacity:.5;animation:float 3s ease-in-out infinite}
+.lpengs img:nth-child(2){animation-delay:.3s;height:65px}
+.lpengs img:nth-child(3){animation-delay:.6s;height:70px}
+.lpengs img:nth-child(4){animation-delay:.9s;height:60px}
+.btn-m{background:var(--ch);color:var(--cream);border:none;padding:14px 44px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.82rem;cursor:pointer;transition:all .25s}
+.btn-m:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.btn-o{background:transparent;border:1.5px solid var(--ch-d);color:var(--ch);padding:11px 28px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.7rem;cursor:pointer;transition:all .25s}
+.btn-o:hover{border-color:var(--ch);transform:translateY(-2px)}
+.sl{font-family:'Silkscreen',cursive;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ch-d);margin-bottom:8px}
+.st{font-family:'Silkscreen',cursive;font-size:clamp(1rem,3.5vw,1.4rem);color:var(--ch);margin-bottom:6px}
+
+/* Game */
+#p1{padding-top:20px}
+.gw{width:100%;max-width:420px;text-align:center}
+.gd{display:flex;justify-content:center;gap:10px;margin-bottom:12px}.gd img{height:55px;object-fit:contain;opacity:.35}
+.gh{font-size:.76rem;color:var(--ch-l);margin-bottom:12px;font-weight:500}
+.gs{font-size:.6rem;color:var(--ch-d);letter-spacing:.15em;margin-bottom:10px;font-family:'Silkscreen',cursive}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:300px;margin:0 auto 12px}
+.card{aspect-ratio:1;border-radius:10px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;position:relative}
+.card.flipped,.card.matched{transform:rotateY(180deg)}
+.card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.card-front{background:var(--wh);border:1.5px solid var(--cream-dark);font-size:1rem;color:var(--ch-d);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card-back{transform:rotateY(180deg);font-size:1.5rem;background:var(--wh);border:1.5px solid var(--lav)}
+.card.matched .card-back{background:var(--lav-s);border-color:var(--lav)}
+.gm{font-weight:600;font-size:.92rem;color:var(--ch-l);min-height:26px;margin-bottom:8px}
+.btn-s{background:transparent;border:1.5px solid var(--cream-dark);color:var(--ch-d);padding:6px 16px;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.58rem;cursor:pointer;transition:all .2s}
+.btn-s:hover{border-color:var(--ch-d);color:var(--ch)}
+
+/* Photos */
+#p2{justify-content:flex-start;padding-top:24px;padding-bottom:50px}
+.psub{font-weight:500;color:var(--ch-l);font-size:.85rem;margin-bottom:20px;text-align:center}
+.pgrid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;max-width:760px;width:100%;margin:0 auto 24px}
+.pf{position:relative;border-radius:10px;overflow:hidden;background:var(--wh);border:2px solid var(--cream-dark);transition:all .3s;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04);flex-shrink:0}
+.pf:hover{transform:translateY(-3px);border-color:var(--lav);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.pf img{display:block;width:100%;height:auto}
+.pf.land{width:220px}.pf.port{width:140px}.pf.coll{width:100px}
+.po{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(255,248,240,.92) 0%,transparent 100%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;justify-content:center;padding:10px;height:40%}
+.pf:hover .po{opacity:1}
+.pc{font-family:'Silkscreen',cursive;font-size:.5rem;color:var(--ch)}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:none;align-items:center;justify-content:center;cursor:pointer;animation:fadeIn .3s}
+.lightbox.show{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.4);animation:zoomIn .3s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* Surprise */
+#p3{justify-content:center}
+.sw{text-align:center;max-width:440px;width:100%}
+.spi{width:130px;margin:0 auto 16px;animation:waddle 1.2s ease-in-out infinite}.spi img{width:100%;object-fit:contain}
+.sbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.btn-y{background:#5cb85c;color:white;padding:13px 34px;border:none;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.8rem;cursor:pointer;transition:all .25s}
+.btn-y:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(92,184,92,.3)}
+.btn-n{background:#e85d5d;color:white;padding:13px 34px;border:none;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.8rem;cursor:pointer;transition:all .25s}
+.btn-n:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,93,93,.3)}
+.mw{margin-top:18px;max-width:280px;margin-left:auto;margin-right:auto;display:none}
+.mw.show{display:block;animation:fadeUp .4s both}
+.ml{font-size:.55rem;color:var(--ch-d);letter-spacing:.12em;margin-bottom:6px;font-family:'Silkscreen',cursive}
+.mb{width:100%;height:16px;background:var(--cream-dark);border-radius:8px;overflow:hidden;border:1.5px solid rgba(0,0,0,.05)}
+.mfill{height:100%;width:0%;background:linear-gradient(90deg,#f0b6c4,#e8856e,#e85d5d);border-radius:8px;transition:width .4s}
+.mt{font-weight:600;font-size:.82rem;color:var(--ch-l);margin-top:8px;min-height:22px}
+.sad-penguin{position:fixed;pointer-events:none;z-index:100;animation:pfall linear forwards}
+@keyframes pfall{0%{transform:translateY(-60px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+@keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(-6px,3px)}50%{transform:translate(5px,-5px)}75%{transform:translate(-3px,6px)}}
+.shaking{animation:shake .5s ease}
+
+/* Cake */
+#p4{justify-content:center}
+.cpw{text-align:center;max-width:480px;width:100%}
+.ct{font-family:'Silkscreen',cursive;font-size:clamp(1rem,3.5vw,1.4rem);color:var(--ch);margin-bottom:14px}
+.cake-scene{width:300px;height:300px;margin:0 auto 20px;position:relative}
+.cake-layer{position:absolute;left:50%;transform:translateX(-50%);border-radius:18px 18px 12px 12px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.layer-b{bottom:20px;width:220px;height:70px;background:linear-gradient(180deg,#f5d5c0 0%,#e8b090 100%);border:2px solid rgba(0,0,0,.05)}
+.layer-b::after{content:'';position:absolute;top:0;left:0;right:0;height:20px;background:linear-gradient(180deg,#fce8d8,#f5d5c0);border-radius:18px 18px 0 0}
+.layer-m{bottom:88px;width:180px;height:60px;background:linear-gradient(180deg,#f5c8e0 0%,#e0a0c0 100%);border:2px solid rgba(0,0,0,.05)}
+.layer-m::after{content:'';position:absolute;top:0;left:0;right:0;height:18px;background:linear-gradient(180deg,#fce0f0,#f5c8e0);border-radius:18px 18px 0 0}
+.layer-t{bottom:146px;width:140px;height:54px;background:linear-gradient(180deg,#d8cef5 0%,#b8a0e0 100%);border:2px solid rgba(0,0,0,.05)}
+.layer-t::after{content:'';position:absolute;top:0;left:0;right:0;height:16px;background:linear-gradient(180deg,#ece6ff,#d8cef5);border-radius:18px 18px 0 0}
+.drip{position:absolute;border-radius:0 0 50% 50%;opacity:.7;z-index:2}
+.drip-b{top:20px;width:12px;background:linear-gradient(180deg,#fce8d8,#f0d0b0)}
+.drip-m{top:18px;width:10px;background:linear-gradient(180deg,#fce0f0,#f0c8d8)}
+.drip-t{top:16px;width:9px;background:linear-gradient(180deg,#ece6ff,#d8d0f5)}
+.plate{position:absolute;bottom:8px;left:50%;width:260px;height:20px;transform:translateX(-50%);background:var(--cream-dark);border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.candles{position:absolute;bottom:198px;left:50%;transform:translateX(-50%);display:flex;gap:3px;justify-content:center;width:130px;flex-wrap:wrap;z-index:10}
+.candle{width:4px;height:24px;border-radius:2px 2px 0 0;position:relative;background:linear-gradient(90deg,#fbbf24,#fde68a,#fbbf24)}
+.flame{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:8px;height:12px;background:radial-gradient(ellipse,#fff 0%,#fef9c3 25%,#fbbf24 55%,#f97316 85%,transparent 100%);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flicker .15s ease-in-out infinite alternate;filter:blur(.3px);box-shadow:0 0 8px 3px rgba(251,191,36,.4),0 0 20px 6px rgba(251,191,36,.1)}
+@keyframes flicker{0%{transform:translateX(-50%) scale(1) rotate(-3deg);opacity:1}100%{transform:translateX(-50%) scale(1.12) rotate(3deg);opacity:.85}}
+.flame.out{opacity:0;transition:opacity .3s;box-shadow:none}
+.smoke{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:3px;height:0;background:rgba(180,180,200,.15);border-radius:50%;opacity:0;pointer-events:none}
+.smoke.show{animation:smokeR 1.2s ease forwards}
+@keyframes smokeR{0%{height:5px;opacity:.3;transform:translateX(-50%) translateY(0)}100%{height:16px;opacity:0;transform:translateX(-50%) translateY(-25px)}}
+.cake-sparkle{position:absolute;pointer-events:none;animation:sparkle 2s ease-in-out infinite;font-size:.65rem}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1.15)}}
+.cake-pengs{position:absolute;bottom:30px;width:100%;display:flex;justify-content:space-between;padding:0 10px;pointer-events:none}
+.cake-pengs img{height:55px;object-fit:contain;opacity:.35;animation:float 3s ease-in-out infinite}
+.cake-pengs img:last-child{animation-delay:.5s}
+.btn-bl{background:#7eb8d8;color:white;padding:13px 40px;border:none;border-radius:8px;font-family:'Silkscreen',cursive;font-size:.82rem;cursor:pointer;transition:all .25s}
+.btn-bl:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(126,184,216,.35)}
+.btn-bl.blown{opacity:0;pointer-events:none;transition:opacity .5s}
+.fm{display:none;margin-top:20px;max-width:440px;width:100%}
+.fm.show{display:block;animation:fadeUp .8s both}
+.mc{background:var(--wh);border:2px solid var(--cream-dark);border-radius:14px;padding:28px 24px;text-align:center;box-shadow:0 3px 16px rgba(0,0,0,.04)}
+.mc-to{font-family:'Silkscreen',cursive;font-size:1.1rem;color:var(--ch);margin-bottom:14px}
+.mc-body{font-weight:500;font-size:.85rem;color:var(--ch-l);line-height:1.85;margin-bottom:16px}
+.mc-from{font-family:'Silkscreen',cursive;font-size:.78rem;color:var(--lav)}
+.mc-h{font-size:1.5rem;margin-top:14px;letter-spacing:8px;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.cf{position:fixed;top:-20px;z-index:10001;animation:cfall linear forwards;pointer-events:none}
+@keyframes cfall{0%{transform:translateY(-20px) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
+
+@media(max-width:640px){
+  .board{max-width:260px;gap:5px}
+  .pf.land{width:155px}.pf.port{width:115px}.pf.coll{width:80px}
+  .lp{width:140px;height:140px}
+  .cake-scene{transform:scale(.85)}
+}
+</style>
+</head>
+<body>
+<div class="rain" id="rain"></div>
+<div id="app">
+
+<div class="page active" id="p0">
+  <div class="lp"><img src="penguin_party.png" alt=""></div>
+  <div class="ln">Sophia Bian</div>
+  <div class="ls">Happy Brithday!!</div>
+  <div class="chips">
+    <div class="chip">🐧 penguin</div><div class="chip">🎶 fluter</div><div class="chip">⚡ elec eng nerd</div>
+    <div class="chip">🍵 molly tea addict</div><div class="chip">🥭 mango sago!</div><div class="chip">🍜 noodle lover</div>
+    <div class="chip">🌹 roses</div><div class="chip">🌿 nature!</div><div class="chip">💜 purple!</div>
+  </div>
+  <div class="lpengs">
+    <img src="penguin_statue.png" alt=""><img src="penguin_2.png" alt="">
+    <img src="super_cute_penguin_wave.png" alt=""><img src="penguin_fish.png" alt="">
+  </div>
+  <button class="btn-m" onclick="goTo(1)">click me!</button>
+</div>
+
+<div class="page" id="p1">
+  <div class="gw">
+    <div class="gd"><img src="penguin_statue.png" alt=""><img src="penguin_2.png" alt=""><img src="super_cute_penguin_wave.png" alt=""></div>
+    <div class="sl">A game to make this interesting lol</div>
+    <div class="st">match the pairs</div>
+    <p class="gh">find all 8</p>
+    <div class="gs">moves: <span id="mc2">0</span> · matched: <span id="mc3">0</span>/8</div>
+    <div class="board" id="board"></div>
+    <div class="gm" id="gMsg">flip two cards to start 🐧</div>
+    <button class="btn-s" onclick="initGame()">shuffle</button>
+  </div>
+</div>
+
+<div class="page" id="p2">
+  <div class="sl">a year + more</div>
+  <div class="st" style="margin-bottom:4px">us 💜</div>
+  <p class="psub">Some of my fav pics/p>
+  <div class="pgrid">
+    <div class="pf land" onclick="openLB(this)"><img src="pic1.jpeg" alt=""><div class="po"><span class="pc">Us 💜</span></div></div>
+    <div class="pf land" onclick="openLB(this)"><img src="pic2.jpeg" alt=""><div class="po"><span class="pc">Woahh touching grass</span></div></div>
+    <div class="pf land" onclick="openLB(this)"><img src="pic3.jpeg" alt=""><div class="po"><span class="pc">Beach Day w/Ian & Iris</span></div></div>
+    <div class="pf port" onclick="openLB(this)"><img src="pic5.jpeg" alt=""><div class="po"><span class="pc">cal day!!</span></div></div>
+    <div class="pf coll" onclick="openLB(this)"><img src="pic6.jpeg" alt=""><div class="po"><span class="pc">Senior Ball</span></div></div>
+    <div class="pf coll" onclick="openLB(this)"><img src="pic8.jpeg" alt=""><div class="po"><span class="pc">More Senior Ball lol</span></div></div>
+  </div>
+  <button class="btn-o" onclick="goTo(3)">keep going →</button>
+</div>
+
+<div class="page" id="p3">
+  <div class="sw">
+    <div class="spi"><img src="penguin_fish.png" alt=""></div>
+    <div class="st">CLICK FOR A SURPRISE!!!!</div>
+    <p style="color:var(--ch-d);font-size:.65rem;margin-bottom:22px;font-family:'Silkscreen',cursive">You better not choose no</p>
+    <div class="sbtns">
+      <button class="btn-y" onclick="yesClick()">yes!!!</button>
+      <button class="btn-n" id="noBtn" onclick="noClick()">no</button>
+    </div>
+    <div class="mw" id="meterW">
+      <div class="ml">🐧 You're making the penguins angry bruh 🐧</div>
+      <div class="mb"><div class="mfill" id="meterF"></div></div>
+      <div class="mt" id="meterT"></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="p4">
+  <div class="cpw">
+    <div class="ct">Make a wish!!</div>
+    <div class="cake-scene" id="cakeScene">
+      <div class="candles" id="candlesRow"></div>
+      <div class="cake-layer layer-t">
+        <div class="drip drip-t" style="left:10px;height:14px"></div>
+        <div class="drip drip-t" style="left:35px;height:18px"></div>
+        <div class="drip drip-t" style="left:65px;height:12px"></div>
+        <div class="drip drip-t" style="left:95px;height:16px"></div>
+        <div class="drip drip-t" style="left:120px;height:10px"></div>
+      </div>
+      <div class="cake-layer layer-m">
+        <div class="drip drip-m" style="left:14px;height:18px"></div>
+        <div class="drip drip-m" style="left:45px;height:24px"></div>
+        <div class="drip drip-m" style="left:80px;height:13px"></div>
+        <div class="drip drip-m" style="left:115px;height:20px"></div>
+        <div class="drip drip-m" style="left:155px;height:11px"></div>
+      </div>
+      <div class="cake-layer layer-b">
+        <div class="drip drip-b" style="left:18px;height:20px"></div>
+        <div class="drip drip-b" style="left:55px;height:28px"></div>
+        <div class="drip drip-b" style="left:95px;height:16px"></div>
+        <div class="drip drip-b" style="left:140px;height:24px"></div>
+        <div class="drip drip-b" style="left:185px;height:12px"></div>
+      </div>
+      <div class="plate"></div>
+      <div class="cake-pengs"><img src="penguin_statue.png" alt=""><img src="super_cute_penguin_wave.png" alt=""></div>
+    </div>
+    <button class="btn-bl" id="blowBtn" onclick="blowCandles()">blow 🌬️</button>
+    <div class="fm" id="finalMsg">
+      <div class="mc">
+        <div class="mc-to">To Soph</div>
+        <div class="mc-body">
+          I know you've been stressed recently, so I wanted to make something that could make your day a little bit better. I'm always here for you whenever you need me, and I'll always listen to you whenever you need someone to talk to!<br><br>
+          Happy 19th Birthday Sophia. You're such an amazing person and I'm so glad I get to celebrate your 19th with you.
+        </div>
+        <div class="mc-from">love, Spench 🐧</div>
+        <div class="cake-pengs"><img src="penguin_party.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="lightbox" id="lb" onclick="closeLB()"><img id="lbImg" src=""></div>
+
+<script>
+// Rain
+!function(){const c=document.getElementById('rain'),d=['·','✦','✧'];setInterval(()=>{const e=document.createElement('div');e.className='raindrop';e.textContent=d[Math.random()*3|0];const s=5+Math.random()*7,t=8+Math.random()*10;e.style.cssText='left:'+Math.random()*100+'%;font-size:'+s+'px;color:rgba(196,168,224,'+(0.1+Math.random()*.15)+');animation-duration:'+t+'s';c.appendChild(e);setTimeout(()=>e.remove(),(t+1)*1e3)},700)}();
+
+// Nav
+let cur=0;
+function goTo(n){document.querySelectorAll('.page')[cur].classList.remove('active');setTimeout(()=>{cur=n;const p=document.querySelectorAll('.page')[n];p.classList.add('active');p.scrollTop=0;if(n===4)buildCake()},500)}
+
+// Lightbox
+function openLB(el){const s=el.querySelector('img').src;document.getElementById('lbImg').src=s;document.getElementById('lb').classList.add('show')}
+function closeLB(){document.getElementById('lb').classList.remove('show')}
+
+// Game
+const ej=['🐧','🌹','🍵','🎶','🥭','🍜','🌿','💜'];
+let cards=[],fl=[],pr=0,mv=0,lk=false;
+function initGame(){
+  cards=[...ej,...ej].sort(()=>Math.random()-.5);fl=[];pr=0;mv=0;lk=false;
+  document.getElementById('mc2').textContent='0';document.getElementById('mc3').textContent='0';
+  document.getElementById('gMsg').textContent='flip two cards to start 🐧';
+  const b=document.getElementById('board');b.innerHTML='';
+  cards.forEach((e,i)=>{const c=document.createElement('div');c.className='card';c.innerHTML='<div class="card-front">✦</div><div class="card-back">'+e+'</div>';c.onclick=()=>flip(c,i);b.appendChild(c)});
+}
+function flip(c,i){
+  if(lk||c.classList.contains('flipped')||c.classList.contains('matched'))return;
+  c.classList.add('flipped');fl.push({c,i,e:cards[i]});
+  if(fl.length===2){mv++;document.getElementById('mc2').textContent=mv;lk=true;const[a,b]=fl;
+    if(a.e===b.e){pr++;document.getElementById('mc3').textContent=pr;a.c.classList.add('matched');b.c.classList.add('matched');fl=[];lk=false;
+      if(pr===8){document.getElementById('gMsg').textContent='all matched! 🐧💜';confetti();setTimeout(()=>goTo(2),1800)}
+      else document.getElementById('gMsg').textContent=['nice 🐧','got it 💜','keep going!','yes!'][Math.random()*4|0];
+    }else{document.getElementById('gMsg').textContent=['not quite 🐧','try again','close!'][Math.random()*3|0];
+      setTimeout(()=>{a.c.classList.remove('flipped');b.c.classList.remove('flipped');fl=[];lk=false},800)}}
+}
+
+// Surprise
+let nc=0;
+const nM=['the penguins are upset','seriously? 🐧','you\'re making them angry...','the waddle of disapproval grows','SOPHIA. 🐧🐧🐧','the penguins are staging a revolt','last chance before mutiny...','okay fine. but the penguins remember.','they will never forget this.','just say yes already 🐧💜'];
+const sP=['😤','😠','🐧','😡','💢','😾','🙄','😒'];
+function noClick(){
+  nc++;document.getElementById('meterW').classList.add('show');
+  document.getElementById('meterF').style.width=Math.min(nc*10,100)+'%';
+  document.getElementById('meterT').textContent=nM[Math.min(nc-1,nM.length-1)];
+  document.getElementById('app').classList.add('shaking');setTimeout(()=>document.getElementById('app').classList.remove('shaking'),500);
+  for(let i=0;i<Math.min(3+nc,12);i++)setTimeout(()=>{const p=document.createElement('div');p.className='sad-penguin';p.textContent=sP[Math.random()*sP.length|0];p.style.cssText='left:'+(Math.random()*90+5)+'%;font-size:'+(1.5+Math.random()*1.5)+'rem;animation-duration:'+(2+Math.random()*3)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),5e3)},i*80);
+  const b=document.getElementById('noBtn');b.style.fontSize=Math.max(.45,.8-.03*nc)+'rem';b.style.padding=Math.max(5,13-nc)+'px '+Math.max(14,34-nc*2)+'px';
+  if(nc>=10){b.style.opacity='.3';b.textContent='...fine'}
+}
+function yesClick(){confetti();setTimeout(()=>goTo(4),800)}
+
+// Cake
+let cakeBuilt=false;
+function buildCake(){
+  if(cakeBuilt)return;cakeBuilt=true;
+  const r=document.getElementById('candlesRow');
+  for(let i=0;i<19;i++){const c=document.createElement('div');c.className='candle';
+    const f=document.createElement('div');f.className='flame';f.style.animationDelay=(Math.random()*.2)+'s';
+    const s=document.createElement('div');s.className='smoke';c.appendChild(f);c.appendChild(s);r.appendChild(c)}
+  const sc=document.getElementById('cakeScene'),ch=['✦','✧','·','⋆','★'];
+  for(let i=0;i<10;i++){const s=document.createElement('div');s.className='cake-sparkle';s.textContent=ch[Math.random()*ch.length|0];
+    s.style.cssText='left:'+(5+Math.random()*90)+'%;top:'+(5+Math.random()*65)+'%;color:rgba(228,195,106,'+(0.25+Math.random()*.35)+');animation-delay:'+Math.random()*2+'s;animation-duration:'+(1.5+Math.random()*1.5)+'s';sc.appendChild(s)}
+}
+function blowCandles(){
+  const flames=document.querySelectorAll('#candlesRow .flame'),smokes=document.querySelectorAll('#candlesRow .smoke');
+  const idx=[...Array(19).keys()].sort(()=>Math.random()-.5);
+  idx.forEach((x,i)=>setTimeout(()=>{flames[x].classList.add('out');smokes[x].classList.add('show')},200+i*80));
+  document.getElementById('blowBtn').classList.add('blown');
+  document.querySelectorAll('.cake-sparkle').forEach(s=>{s.style.opacity='0';s.style.transition='opacity .5s'});
+  setTimeout(()=>{document.getElementById('finalMsg').classList.add('show');confetti()},200+19*80+500);
+}
+
+function confetti(){const it=['💜','🌸','✦','🐧','✧','🌹','💛','🎉','⭐'];for(let i=0;i<50;i++)setTimeout(()=>{const p=document.createElement('div');p.className='cf';p.textContent=it[Math.random()*it.length|0];p.style.cssText='left:'+Math.random()*100+'%;font-size:'+(11+Math.random()*15)+'px;animation-duration:'+(2.2+Math.random()*3)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),5500)},i*45)}
+initGame();
+</script>
+</body>
+</html>
